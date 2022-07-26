@@ -8,12 +8,14 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import AddIcon from '@mui/icons-material/Add';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import '@fontsource/roboto/300.css';
 
-export default class AlbumViewListItem extends React.PureComponent {
+export default class SongViewListItem extends React.PureComponent {
   render() {
     const item = this.props.data[0];
     return (
       <ListItem 
+        // style={this.props.style} 
         style={this.props.style} 
         key={this.props.index} 
         component="div" 
@@ -35,12 +37,12 @@ export default class AlbumViewListItem extends React.PureComponent {
           </div>
         }
       >
-        <ListItemButton >
+        <ListItemButton sx={{ height: 64 }}>
           <IconButton>
               <PlayCircleIcon className="button" sx={{visibility:"hidden"}}/>
             </IconButton>
-          <ListItemText primary={`${item.name} ${this.props.index + 1}`} />
-          <ListItemText className="songInfo" primary={`Song Info`} sx={{visibility:"hidden"}}/>
+          <ListItemText primary={`${this.props.index + 1}. ${item.name}`} secondary="Artists info" />
+          <ListItemText className="songInfo" secondary={`Time`} sx={{visibility:"hidden"}}/>
         </ListItemButton>
       </ListItem>
     );

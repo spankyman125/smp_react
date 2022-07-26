@@ -1,6 +1,13 @@
 import React from 'react';
 import withRouter from './withRouter';
+import SongViewList from "./SongViewList"
 import AlbumViewList from "./AlbumViewList"
+import AlbumInfo from "./AlbumInfo"
+import '@fontsource/roboto/300.css';
+import Typography from '@mui/material/Typography';
+import SongViewListItem from "./SongViewListItem"
+import Box from '@mui/material/Box';
+
 
 class AlbumView extends React.Component {
   constructor(props) {
@@ -35,11 +42,10 @@ class AlbumView extends React.Component {
   render() {
     if (this.state.isLoaded) {
       return(
-        <div>
-          <h1>AlbumView</h1>
-          <h3>Title: {this.state.album.title}</h3>
-          <AlbumViewList/>
-        </div>
+        <Box>
+          <AlbumInfo album={this.state.album}/>
+          <AlbumViewList album={this.state.album}/>
+        </Box>
       )
     }
     else

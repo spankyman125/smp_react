@@ -8,7 +8,7 @@ const SmpBottomAppBar = () => {
   return (
     <AppBar position="static" color="primary" sx={{ top: 'auto', bottom: 0 }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters variant="dense">
+        <Toolbar disableGutters>
         </Toolbar>
       </Container>
     </AppBar>
