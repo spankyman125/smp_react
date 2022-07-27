@@ -11,10 +11,10 @@ import { Container } from '@mui/material';
 export default function HeaderInfo(props) {
   return (
     <Grid container>
-      <Grid item sx={{ paddingRight:"20px",minWidth:"200px", maxWidth:"200px", height:"200px"}}>
-        <Box sx={{position:"relative", borderRadius:'50%'}}>
+      <Grid item sx={{ paddingRight:"10px"}}>
+        <Box sx={{position:"relative", borderRadius:'50%',width:"200px",height:"200px"}}>
           <img src={props.image} width="100%" height="100%" style={{borderRadius: "7%"}}/>
-          <Button variant="contained" sx={{position:"absolute", bottom:"5%", right:"5%", height:"35px",width:"35px", minWidth:"5px"}}>
+          <Button variant="contained" sx={{position:"absolute", bottom:"10px", right:"10px", height:"35px",width:"35px", minWidth:"5px"}}>
             <FavoriteBorderIcon />
           </Button>
         </Box>

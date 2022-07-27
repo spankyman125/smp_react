@@ -1,14 +1,11 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { FixedSizeList } from 'react-window';
-import SongViewListItem from "./SongViewListItem"
-import HeaderInfo from "./HeaderInfo"
 import Typography from '@mui/material/Typography';
-import { Grid } from '@mui/material';
-import { Link, Link as RouterLink }  from "react-router-dom";
 import { Link as MuiLink } from '@mui/material';
+import { Link as RouterLink }  from "react-router-dom";
 
-const URLMAIN = "http://septerra.duckdns.org:33333";
+import HeaderInfo from "./HeaderInfo"
+import { URLMAIN } from "./Consts" 
 
 export default function AlbumInfo(props) {
   return (
@@ -32,6 +29,7 @@ function AlbumInfoText(props) {
           component={RouterLink} 
           to={"/artists/" + props.album.artists[0].id}
           underline="none"
+          sx={{color:"info.main"}}
         >
           {props.album.artists[0].name}
         </MuiLink>
