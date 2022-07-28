@@ -1,57 +1,95 @@
 import React from 'react';
+import { useState,useContext } from "react";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { IconButton } from '@mui/material';
-import Button from '@mui/material/Button';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Container } from '@mui/material';
 import { Stack } from '@mui/material';
-
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import Slider from '@mui/material/Slider';
+import Checkbox from '@mui/material/Checkbox';
 
 import { URLMAIN } from "./Consts" 
+import { PlayerContext } from "./App"
+import { PlayerSlider } from "./PlayerSlider"
 
-export default class Player extends React.Component {
-  constructor(props) {
-    super(props);
-    this.audio = new Audio(URLMAIN+props.song.file_url);
-    this.state = {
-      song: props.song,
-    }
-  }
+export default function Player(props) {
 
-  togglePlay = () => {
-    this.setState(() => { this.audio.play() });
-  }
+  const {playerContext, setPlayerContext} = useContext(PlayerContext);
 
-  render() {
-    return (
-      <Stack direction='row' width="100%">
-        <Box sx = {{height: {lg:"48px",sm:"64px",xs:'48px'},  padding:"0px 10px 0px 10px", alignSelf:'center',flexShrink: 0}}>
-          <img src={URLMAIN + this.state.song.cover_url} width="100%" height="100%" style={{borderRadius: "7%"}}/>
-        </Box>
-        <Stack direction={{lg:'row',sm:'column-reverse',xs:'row'}}>
-          <Stack direction='row' sx={{color:"secondary.main"}}>
-            <IconButton><SkipPreviousIcon/></IconButton>
-            <IconButton onClick={this.togglePlay}><PlayArrowIcon/></IconButton>
-            <IconButton><SkipNextIcon/></IconButton>
-          </Stack>
-          <Stack direction='column' sx={{alignSelf:"center"}}>
-            <Typography variant="body1">{this.state.song.title}</Typography>
-            <Typography noWrap variant="caption">{this.state.song.artists[0].name}, {this.state.song.artists[1].name}</Typography>
-          </Stack>
-        </Stack>
-        <Box width={300} sx={{alignSelf:"center", flexGrow: 1, p:"0px 10px 0px 10px",display: { xs: 'none', sm: 'flex' }}}>
-          <Slider defaultValue={50} aria-label="Default" color="info" />
-        </Box>
-      </Stack>
+  const [audio, setAudio] = useState(
+    playerContext.currentSong ? 
+    new Audio(URLMAIN + playerContext.currentSong.file_url)
+    :
+    null
     );
+
+  if(playerContext.isPlaying)
+    audio.play();
+  else
+    audio.pause();
+
+  const next = () => {
+    if(playerContext.queue.songs[playerContext.queue.position+1]){
+      audio.pause();
+      playerContext.currentSong = playerContext.queue.songs[playerContext.queue.position+1];
+      playerContext.queue.position += 1;
+      setPlayerContext({...playerContext});
+      setAudio(new Audio(URLMAIN + playerContext.currentSong.file_url));
+    }
+  } 
+
+  const prev = () => {
+    if(playerContext.queue.songs[playerContext.queue.position-1]){
+      audio.pause();
+      playerContext.currentSong = playerContext.queue.songs[playerContext.queue.position-1];
+      playerContext.queue.position -= 1;
+      setPlayerContext({...playerContext});
+      setAudio(new Audio(URLMAIN + playerContext.currentSong.file_url));
+    }
+  } 
+
+  const togglePlay = () => {
+    if(playerContext.isPlaying) {
+      playerContext.isPlaying = false;
+      setPlayerContext({...playerContext});
+    }
+    else {
+      playerContext.isPlaying = true;
+      setPlayerContext({...playerContext});
+    } 
   }
+
+  return (
+    <Stack direction='row' width="100%" alignItems="center">
+      <Box sx = {{height: {lg:"48px",sm:"64px",xs:'48px'},  padding:"0px 10px 0px 10px",flexShrink: 0}}>
+        <img alt= "" src={URLMAIN + playerContext.currentSong.cover_url} width="100%" height="100%" style={{borderRadius: "7%"}}/>
+      </Box>
+      <Stack direction={{lg:'row',sm:'column-reverse',xs:'row'}} spacing={0}>
+        <Stack direction='row'>
+          <IconButton onClick={prev}><SkipPreviousIcon/></IconButton>
+          <Checkbox 
+            checked={playerContext.isPlaying? true : false}
+            color='default' 
+            icon={<PlayArrowIcon/>} 
+            checkedIcon={<PauseIcon/>} 
+            onChange={togglePlay}  
+          />
+          <IconButton onClick={next}><SkipNextIcon/></IconButton>
+        </Stack>
+        <Stack direction='column'>
+          <Typography variant="body1">{playerContext.currentSong.title}</Typography>
+          <Typography noWrap variant="caption">{playerContext.currentSong.artists[0].name}, {playerContext.currentSong.artists[1].name}</Typography>
+        </Stack>
+      </Stack>
+      <Box sx={{ flexGrow: 1, p:"0px 10px 0px 10px", display: { xs: 'none', sm: 'flex' }}}>
+        <PlayerSlider audio={audio} />
+      </Box>
+    </Stack>
+  );
 
 }
 
