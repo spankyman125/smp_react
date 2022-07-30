@@ -24,19 +24,20 @@ function AlbumInfoText(props) {
       <Typography variant="h4">
         {props.album.title}
       </Typography>
-        <MuiLink 
-          variant="h5"
-          component={RouterLink} 
-          to={"/artists/" + props.album.artists[0].id}
-          underline="none"
-          sx={{color:"info.main"}}
-        >
-          {props.album.artists[0].name}
-        </MuiLink>
-        <Typography variant="subtitle1">
-          {props.album.release_date} - {props.album.songs[0].tags[0].name} 
-            {/* TODO: all link, all tags */}
-        </Typography>
+      <MuiLink 
+        variant="h5"
+        component={RouterLink} 
+        to={"/artists/" + props.album.artists[0].id}
+        underline="none"
+        sx={{color:"info.main"}}
+      >
+        {props.album.artists[0].name}
+        {/* {props.album.artists.map((artist)=> {props.album.artists[0].name})} */}
+      </MuiLink>
+      <Typography variant="subtitle1">
+        {props.album.release_date} - {props.album.songs[0].tags[0].name} 
+          {/* TODO: all link, all tags */}
+      </Typography>
     </Box>
   );
 }

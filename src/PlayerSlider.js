@@ -7,9 +7,8 @@ import Slider from '@mui/material/Slider';
 export function PlayerSlider(props) {
   
   const [sliderTime, setSliderTime] = useState(0);
-  console.log("Slider Rendered");
+  
   React.useEffect(() => {
-    console.log("Timer set");
     const tmr = setInterval(() => {setSliderTime(props.audio.currentTime);}, 50);
     return () => clearInterval(tmr);
   },[props.audio]);

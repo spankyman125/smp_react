@@ -13,7 +13,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Checkbox from '@mui/material/Checkbox';
 
 import { URLMAIN } from "./Consts" 
-import { PlayerContext } from "./App"
+import { PlayerContext } from "./PlayerContext"
 import { PlayerSlider } from "./PlayerSlider"
 
 export default function Player(props) {
@@ -66,7 +66,7 @@ export default function Player(props) {
   return (
     <Stack direction='row' width="100%" alignItems="center">
       <Box sx = {{height: {lg:"48px",sm:"64px",xs:'48px'},  padding:"0px 10px 0px 10px",flexShrink: 0}}>
-        <img alt= "" src={URLMAIN + playerContext.currentSong.cover_url} width="100%" height="100%" style={{borderRadius: "7%"}}/>
+        <img alt="" src={URLMAIN + playerContext.currentSong.cover_url} width="100%" height="100%" style={{borderRadius: "7%"}}/>
       </Box>
       <Stack direction={{lg:'row',sm:'column-reverse',xs:'row'}} spacing={0}>
         <Stack direction='row'>

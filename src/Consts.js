@@ -1,4 +1,25 @@
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 export const URLMAIN = "http://septerra.duckdns.org:33333";
+
+export const theme = createTheme({
+  palette: {
+    // mode:"dark",
+    primary: {
+      main: '#2f524e',
+    },
+    background: {
+      paper: '#e8e8de',
+      default: '#e8e8de',
+    },
+    secondary: {
+      main: '#2f524e',
+    },
+    info: {
+      main: '#48808f',
+    },
+  },
+});
 
 export const song = {
   "id": 16,

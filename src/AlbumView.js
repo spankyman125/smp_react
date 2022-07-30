@@ -20,8 +20,8 @@ class AlbumView extends React.Component {
     }
   }
 
-  componentDidMount() { 
-    fetch("http://septerra.duckdns.org:33333/albums/" + this.props.params.id)
+  fetchData() {
+    fetch("http://septerra.duckdns.org:33333/albums/" + this.props.params.albumId)
     .then(res => res.json())
     .then(
       (result) => {
@@ -32,11 +32,21 @@ class AlbumView extends React.Component {
       },
       (error) => {
         this.setState({
-          isLoaded: true,
+          isLoaded: false,
           error
         });
       }
     )
+  }
+
+  //On URL params change
+  componentDidUpdate() {
+    if(this.props.params.albumId!=this.state.album.id) 
+      this.fetchData();
+  }
+
+  componentDidMount() { 
+    this.fetchData();
   }
 
   render() {
@@ -55,4 +65,5 @@ class AlbumView extends React.Component {
   }
 }
 
-export default withRouter(AlbumView);
+const AlbumViewWithRouter = withRouter(AlbumView)
+export { AlbumViewWithRouter as AlbumView} 

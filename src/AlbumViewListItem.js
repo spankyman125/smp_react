@@ -15,7 +15,6 @@ export default class SongViewListItem extends React.PureComponent {
     const item = this.props.data[0];
     return (
       <ListItem 
-        // style={this.props.style} 
         style={this.props.style} 
         key={this.props.index} 
         component="div" 
