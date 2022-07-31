@@ -15,6 +15,43 @@ export default function AlbumInfo(props) {
   );
 }
 
+const showArtists = (artists) => {
+  return artists.map((artist, i)=> (
+    <MuiLink 
+      variant="h5"
+      component={RouterLink} 
+      to={"/artists/" + artist.id}
+      underline="none"
+      sx={{color:"info.main"}}
+    >
+      {artist.name}{i!=artists.length-1 ? ', ' : ''}
+    </MuiLink>
+  ))
+}
+
+const showUniqueTags = (songs) => {
+  let tagsUnique = new Array();
+  let idsUnique = new Set();
+  for (const song of songs)
+    for (const tag of song.tags) {
+      if(!idsUnique.has(tag.id)) {
+        tagsUnique.push(tag);
+        idsUnique.add(tag.id);
+      }
+    }
+  return tagsUnique.map((tag, i) => (
+    <MuiLink 
+      variant="subtitle1"
+      component={RouterLink} 
+      to={"/tags/" + tag.id}
+      underline="none"
+      sx={{color:"info.dark"}}
+    >
+    {tag.name}{i!=tagsUnique.length-1 ? ', ' : ''}
+  </MuiLink>
+  ))
+}
+
 function AlbumInfoText(props) {
   return (
     <Box>
@@ -24,20 +61,10 @@ function AlbumInfoText(props) {
       <Typography variant="h4">
         {props.album.title}
       </Typography>
-      <MuiLink 
-        variant="h5"
-        component={RouterLink} 
-        to={"/artists/" + props.album.artists[0].id}
-        underline="none"
-        sx={{color:"info.main"}}
-      >
-        {props.album.artists[0].name}
-        {/* {props.album.artists.map((artist)=> {props.album.artists[0].name})} */}
-      </MuiLink>
-      <Typography variant="subtitle1">
-        {props.album.release_date} - {props.album.songs[0].tags[0].name} 
-          {/* TODO: all link, all tags */}
-      </Typography>
+        {showArtists(props.album.artists)}
+      <Box>
+        {showUniqueTags(props.album.songs)}
+      </Box>
     </Box>
   );
 }

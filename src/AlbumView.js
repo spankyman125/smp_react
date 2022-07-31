@@ -1,11 +1,11 @@
 import React from 'react';
 import withRouter from './withRouter';
-import SongViewList from "./SongViewList"
+// import SongsViewList from "./SongsViewList"
 import AlbumViewList from "./AlbumViewList"
 import AlbumInfo from "./AlbumInfo"
 import '@fontsource/roboto/300.css';
 import Typography from '@mui/material/Typography';
-import SongViewListItem from "./SongViewListItem"
+// import SongListItem from "./SongListItem"
 import Box from '@mui/material/Box';
 
 

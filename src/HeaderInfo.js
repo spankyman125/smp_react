@@ -10,7 +10,7 @@ import { Container } from '@mui/material';
 
 export default function HeaderInfo(props) {
   return (
-    <Grid container>
+    <Grid container sx={{paddingBottom:"10px"}}>
       <Grid item sx={{ paddingRight:"10px"}}>
         <Box sx={{position:"relative", borderRadius:'50%',width:"200px",height:"200px"}}>
           <img src={props.image} width="100%" height="100%" style={{borderRadius: "7%"}}/>
