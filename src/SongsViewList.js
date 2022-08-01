@@ -1,7 +1,4 @@
-import React from 'react';
 import Box from '@mui/material/Box';
-import { FixedSizeList } from 'react-window';
-import SongListItem from "./SongListItem"
 
 export default function SongsViewList(props) {
   return (
@@ -9,7 +6,7 @@ export default function SongsViewList(props) {
       width: '100%', 
       height: "100%", 
     }}>
-      {/* <FixedSizeList
+      <FixedSizeList
         height={props.height}
         width="100%"
         itemSize={64}
@@ -18,7 +15,7 @@ export default function SongsViewList(props) {
         itemData={props.albums.songs}
       >
         {SongListItem}
-      </FixedSizeList> */}
+      </FixedSizeList>
     </Box>
   );
 }

@@ -1,11 +1,7 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { Grid } from '@mui/material';
-import Button from '@mui/material/Button';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Container } from '@mui/material';
+import { Grid } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 
 export default function HeaderInfo(props) {

@@ -1,12 +1,9 @@
-import React from 'react';
-import withRouter from './withRouter';
-// import SongsViewList from "./SongsViewList"
-import AlbumViewList from "./AlbumViewList"
-import AlbumInfo from "./AlbumInfo"
 import '@fontsource/roboto/300.css';
-import Typography from '@mui/material/Typography';
-// import SongListItem from "./SongListItem"
 import Box from '@mui/material/Box';
+import React from 'react';
+import AlbumInfo from "./AlbumInfo";
+import AlbumViewList from "./AlbumViewList";
+import withRouter from './withRouter';
 
 
 class AlbumView extends React.Component {
@@ -66,4 +63,5 @@ class AlbumView extends React.Component {
 }
 
 const AlbumViewWithRouter = withRouter(AlbumView)
-export { AlbumViewWithRouter as AlbumView} 
+export { AlbumViewWithRouter as AlbumView };
+

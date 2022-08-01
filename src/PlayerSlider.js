@@ -1,8 +1,5 @@
-import React from 'react';
-import { Container } from '@mui/material';
-import { useState,useContext } from "react";
-import LinearProgress from '@mui/material/LinearProgress';
 import Slider from '@mui/material/Slider';
+import React, { useState } from 'react';
 
 export function PlayerSlider(props) {
   

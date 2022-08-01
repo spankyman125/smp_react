@@ -1,11 +1,10 @@
-import React from 'react';
+import { Link as MuiLink } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Link as MuiLink } from '@mui/material';
-import { Link as RouterLink }  from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
-import HeaderInfo from "./HeaderInfo"
-import { URLMAIN } from "./Consts" 
+import { URLMAIN } from "./Consts";
+import HeaderInfo from "./HeaderInfo";
 
 export default function AlbumInfo(props) {
   return (

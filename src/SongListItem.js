@@ -1,22 +1,17 @@
-import React from 'react';
+import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Stack from '@mui/material/Container';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import IconButton from '@mui/material/IconButton';
+import React from 'react';
 
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import '@fontsource/roboto/300.css';
 import AddIcon from '@mui/icons-material/Add';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import '@fontsource/roboto/300.css';
 import { Link as MuiLink } from '@mui/material';
-import { Link as RouterLink }  from "react-router-dom";
-import { PlayerContext } from "./PlayerContext"
-import { useState,useContext } from "react";
-import { Player } from "./Player"
+import { useContext } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { Player } from "./Player";
+import { PlayerContext } from "./PlayerContext";
 
 
 const PopupInfo = ({song}) => {

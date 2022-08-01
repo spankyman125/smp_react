@@ -1,22 +1,17 @@
-import React from 'react';
-import { useState,useContext } from "react";
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { IconButton } from '@mui/material';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Stack } from '@mui/material';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import { IconButton, Stack } from '@mui/material';
+import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
+import Typography from '@mui/material/Typography';
+import { useContext } from "react";
 
-import { URLMAIN } from "./Consts" 
-import { PlayerContext } from "./PlayerContext"
-import { PlayerSlider } from "./PlayerSlider"
-import { AudioControl } from "./AudioControl"
-import { Player } from "./Player"
+import { AudioControl } from "./AudioControl";
+import { URLMAIN } from "./Consts";
+import { Player } from "./Player";
+import { PlayerContext } from "./PlayerContext";
 
 //TODO: Handle no queue state
 export default function PlayerView(props) {

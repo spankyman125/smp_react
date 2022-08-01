@@ -1,6 +1,5 @@
-import React from 'react';
 import Box from '@mui/material/Box';
-import SongListItem from "./SongListItem"
+import SongListItem from "./SongListItem";
 
 export default function AlbumViewList(props) {
   return (

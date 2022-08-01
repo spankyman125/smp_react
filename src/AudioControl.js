@@ -1,11 +1,8 @@
-import { useState,useContext } from "react";
-import { URLMAIN } from "./Consts" 
-import { PlayerContext } from "./PlayerContext"
-import { song, song2, song3,song4, theme } from "./Consts"
 import { Player } from "Player";
-import { PlayerSlider } from "./PlayerSlider"
-
-
+import { useContext, useState } from "react";
+import { URLMAIN } from "./Consts";
+import { PlayerContext } from "./PlayerContext";
+import { PlayerSlider } from "./PlayerSlider";
 
 export function AudioControl(props) {
 

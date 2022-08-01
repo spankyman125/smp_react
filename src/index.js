@@ -1,13 +1,12 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { App } from "App";
-import { Albums } from 'routes/Albums'
-import { Artists } from 'routes/Artists'
-import { Home } from 'routes/Home'
-import { Users } from 'routes/Users'
-import { DefaultRedirect } from 'routes/DefaultRedirect'
+import { Albums } from 'routes/Albums';
+import { Artists } from 'routes/Artists';
+import { DefaultRedirect } from 'routes/DefaultRedirect';
+import { Home } from 'routes/Home';
+import { Users } from 'routes/Users';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

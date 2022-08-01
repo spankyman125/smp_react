@@ -1,11 +1,3 @@
-import { useState,useContext } from "react";
-import { URLMAIN } from "./Consts" 
-import { PlayerContext } from "./PlayerContext"
-import { song, song2, song3,song4, theme } from "./Consts"
-
-
-
-
 export class Player {
 
   static setQueue = (playerContext, setPlayerContext, queue) => {

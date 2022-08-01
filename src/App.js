@@ -1,22 +1,15 @@
-import * as React from 'react';
+import { Box, Grid } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Container } from '@mui/material';
-import { Grid } from '@mui/material';
-import { Box } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 
-import SmpAppBar  from "./SmpAppBar";
-import SmpBottomAppBar  from "./SmpBottomAppBar";
-import useWindowDimensions  from "./ViewPortSizeHook";
-import SongsViewList  from "./SongsViewList";
-import { song, song2, song3,song4, theme } from "./Consts"
-import { PlayerContext } from "./PlayerContext" 
-import { PlayerInit } from "./Player" 
-import { AudioControl } from "./AudioControl" 
 import Stack from '@mui/material/Stack';
-import { URLMAIN } from "./Consts" 
+import { song, song2, song3, song4, theme } from "./Consts";
+import { PlayerContext } from "./PlayerContext";
+import SmpAppBar from "./SmpAppBar";
+import SmpBottomAppBar from "./SmpBottomAppBar";
+import useWindowDimensions from "./ViewPortSizeHook";
 
 export function App() {
   const { height, width } = useWindowDimensions();
@@ -31,8 +24,6 @@ export function App() {
       <CssBaseline/>
       <Stack sx={{ height:"100vh", p: {md:"0px 24px 0px 24px", xs:"0px 0px 0px 0px"} }} >
         <PlayerContext.Provider value={ PlayerContextValue }>
-          {/* <PlayerInit/> */}
-          {/* <AudioControl/> */}
           <SmpAppBar />
           <Grid container sx={{ borderRight:"1px dashed gray", borderLeft:"1px dashed gray", flex:"1 0 auto" }}>
             <Grid item xl={8} md={8} xs={12} sx={{ p:"24px 0px 0px 2vw", borderRight:"1px dashed gray" }}>
