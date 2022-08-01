@@ -11,27 +11,31 @@ import SmpAppBar  from "./SmpAppBar";
 import SmpBottomAppBar  from "./SmpBottomAppBar";
 import useWindowDimensions  from "./ViewPortSizeHook";
 import SongsViewList  from "./SongsViewList";
-import { song, song2, song3, theme } from "./Consts"
+import { song, song2, song3,song4, theme } from "./Consts"
 import { PlayerContext } from "./PlayerContext" 
-
+import { PlayerInit } from "./Player" 
+import { AudioControl } from "./AudioControl" 
+import Stack from '@mui/material/Stack';
+import { URLMAIN } from "./Consts" 
 
 export function App() {
   const { height, width } = useWindowDimensions();
   const [playerContext, setPlayerContext] = useState({
-      queue: {position:0, songs:[song,song2,song3]},
-      currentSong: song,
+      queue: {position:0, songs:[song,song2,song3,song4]},
       isPlaying: false
   });
   const PlayerContextValue = { playerContext, setPlayerContext };
-
+  console.log("App context",PlayerContextValue)
   return(
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-      <Container maxWidth="false" sx={{ height:"100vh", p: {md:"0px 24px 0px 24px", xs:"0px 0px 0px 0px"} }} >
+      <Stack sx={{ height:"100vh", p: {md:"0px 24px 0px 24px", xs:"0px 0px 0px 0px"} }} >
         <PlayerContext.Provider value={ PlayerContextValue }>
+          {/* <PlayerInit/> */}
+          {/* <AudioControl/> */}
           <SmpAppBar />
-          <Grid container sx={{ borderRight:"1px dashed gray", borderLeft:"1px dashed gray" }}>
-            <Grid item xl={8} md={8} xs={12} sx={{ p:"24px 0px 0px 24px", borderRight:"1px dashed gray" }}>
+          <Grid container sx={{ borderRight:"1px dashed gray", borderLeft:"1px dashed gray", flex:"1 0 auto" }}>
+            <Grid item xl={8} md={8} xs={12} sx={{ p:"24px 0px 0px 2vw", borderRight:"1px dashed gray" }}>
               <Outlet />
             </Grid>
             <Grid item xl={4} md={4} xs={0}>
@@ -42,7 +46,7 @@ export function App() {
           </Grid>
           <SmpBottomAppBar/>
         </PlayerContext.Provider>
-      </Container>
+      </Stack>
     </ThemeProvider>
   )
 }

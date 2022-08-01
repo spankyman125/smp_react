@@ -12,13 +12,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
-import Player from "./Player"
+import PlayerView from "./PlayerView"
 
-
-const pages = ['Home', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-
 
 const SmpAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -64,7 +60,7 @@ const SmpAppBar = () => {
             >
               SMP
             </Typography>
-            <Player/>
+            <PlayerView/>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}></Box>
             <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
               <Tooltip title="Open settings">
