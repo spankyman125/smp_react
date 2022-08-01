@@ -18,7 +18,6 @@ export default function PlayerView(props) {
 
   const {playerContext, setPlayerContext} = useContext(PlayerContext);
   let queueIsEmpty = (playerContext.queue.songs.length===0)? true : false
-  console.log("Render PlayView with context", playerContext)
   
   let position = null;
   let currentSong = null;

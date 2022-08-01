@@ -50,21 +50,26 @@ const ArtistsLinks = ({artists}) => {
 
 export default function SongListItem(props) {
     const {playerContext, setPlayerContext} = useContext(PlayerContext);
-
     const song = props.data[props.index];
-    const currentSong = playerContext.queue.songs[playerContext.queue.position];
+    let currentSong = null;
+    
     const onSongClick = () => {
       console.log("Switched to song:",song)
       Player.setQueue(playerContext, setPlayerContext,{position:0,songs:[song]});
     }
-
+    
+    const queueIsEmpty = (playerContext.queue.songs.length===0)? true : false
+    if(!queueIsEmpty) {
+      currentSong = playerContext.queue.songs[playerContext.queue.position];
+    }
+    
     return (
       <ListItem 
         key={ props.index } 
         disablePadding 
         sx= {{
           ':hover': {'.hiddenInfo': { visibility:"visible" }}, 
-          "boxShadow": (currentSong.id === song.id? "inset 0px 0px 0px 1px grey":"")
+          "boxShadow": (!queueIsEmpty && currentSong.id === song.id? "inset 0px 0px 0px 1px grey":"")
           }}
         secondaryAction= {<PopupInfo song={ song }/>}
       >

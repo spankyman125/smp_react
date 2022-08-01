@@ -4,10 +4,12 @@ import React, { useState } from 'react';
 export function PlayerSlider(props) {
   
   const [sliderTime, setSliderTime] = useState(0);
-  
+
   React.useEffect(() => {
-    const tmr = setInterval(() => {setSliderTime(props.audio.currentTime);}, 50);
-    return () => clearInterval(tmr);
+    if (props.audio) {
+      const tmr = setInterval(() => {setSliderTime(props.audio.currentTime);}, 50);
+      return () => clearInterval(tmr);
+    }
   },[props.audio]);
 
   console.log("Creating new handleSliderChange");
@@ -21,10 +23,10 @@ export function PlayerSlider(props) {
       value={sliderTime}
       min={0}
       step={0.01}
-      max={props.audio.duration}
+      max={(props.audio)? props.audio.duration:1}
       aria-label="Default" 
       color="info" 
-      onChange={handleSliderChange}
+      onChange={(props.audio)? handleSliderChange:""}
     />
 
   )

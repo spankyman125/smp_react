@@ -14,7 +14,7 @@ import useWindowDimensions from "./ViewPortSizeHook";
 export function App() {
   const { height, width } = useWindowDimensions();
   const [playerContext, setPlayerContext] = useState({
-      queue: {position:0, songs:[song,song2,song3,song4]},
+      queue: {position:0, songs:[]},
       isPlaying: false
   });
   const PlayerContextValue = { playerContext, setPlayerContext };
