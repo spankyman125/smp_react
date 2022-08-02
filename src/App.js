@@ -10,8 +10,10 @@ import { PlayerContext } from "./PlayerContext";
 import SmpAppBar from "./SmpAppBar";
 import SmpBottomAppBar from "./SmpBottomAppBar";
 import useWindowDimensions from "./ViewPortSizeHook";
+import { API } from "api/API"
 
 export function App() {
+  window.api = API; //Temp
   const { height, width } = useWindowDimensions();
   const [playerContext, setPlayerContext] = useState({
       queue: {position:0, songs:[]},

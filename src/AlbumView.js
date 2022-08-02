@@ -4,7 +4,7 @@ import React from 'react';
 import AlbumInfo from "./AlbumInfo";
 import AlbumViewList from "./AlbumViewList";
 import withRouter from './withRouter';
-
+import { AlbumAPI } from "api/AlbumAPI"
 
 class AlbumView extends React.Component {
   constructor(props) {
@@ -18,22 +18,16 @@ class AlbumView extends React.Component {
   }
 
   fetchData() {
-    fetch("http://septerra.duckdns.org:33333/albums/" + this.props.params.albumId)
-    .then(res => res.json())
+    AlbumAPI.get(this.props.params.albumId)
     .then(
       (result) => {
         this.setState({
           isLoaded: true,
           album: result
         });
-      },
-      (error) => {
-        this.setState({
-          isLoaded: false,
-          error
-        });
       }
     )
+    .catch((error)=>{console.debug(error)})
   }
 
   //On URL params change

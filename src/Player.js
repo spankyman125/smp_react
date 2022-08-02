@@ -40,9 +40,11 @@ export class Player {
   }
 
   static resume= (playerContext, setPlayerContext) => {
-    playerContext.isPlaying = true;
-    console.log("Audio resumed");
-    setPlayerContext({...playerContext});
+    if(playerContext.queue.songs[playerContext.queue.position]) {
+      playerContext.isPlaying = true;
+      console.log("Audio resumed");
+      setPlayerContext({...playerContext});
+    }
   }
 
   static togglePlay = (playerContext, setPlayerContext) => {
