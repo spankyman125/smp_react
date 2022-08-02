@@ -6,7 +6,7 @@ export default function AlbumViewList(props) {
     <Box>
       {
         props.album.songs.map((song, index) => (
-          <SongListItem data={props.album.songs} index={index}/>
+          <SongListItem data={props.album.songs} index={index} key={index}/>
         ))
       }
     </Box>

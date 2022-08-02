@@ -1,61 +1,43 @@
 import '@fontsource/roboto/300.css';
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { useEffect } from 'react';
 import AlbumInfo from "./AlbumInfo";
 import AlbumViewList from "./AlbumViewList";
-import withRouter from './withRouter';
 import { AlbumAPI } from "api/AlbumAPI"
+import { useState } from "react";
+import { useParams } from 'react-router-dom';
 
-class AlbumView extends React.Component {
-  constructor(props) {
-    super(props);    
-    this.state = {
-      isLoaded: false,
-      album: {
-        id: null,
-      }
-    }
-  }
+export function AlbumView() {
+  
+  const [isLoaded, setIsLoaded] = useState(false); 
+  const [album, setAlbum] = useState(null); 
+  const urlParams = useParams();
 
-  fetchData() {
-    AlbumAPI.get(this.props.params.albumId)
+  const fetchData = () => {
+    console.log("Fetching data");
+    AlbumAPI.get(urlParams.albumId)
     .then(
       (result) => {
-        this.setState({
-          isLoaded: true,
-          album: result
-        });
+        setIsLoaded(true);
+        setAlbum(result);
       }
     )
     .catch((error)=>{console.debug(error)})
   }
-
-  //On URL params change
-  componentDidUpdate() {
-    if(this.props.params.albumId!=this.state.album.id) 
-      this.fetchData();
+    
+  useEffect(()=>fetchData(),[urlParams.albumId])
+    
+  if (isLoaded) {
+    return(
+      <Box>
+        <AlbumInfo album={album}/>
+        <AlbumViewList album={album}/>
+      </Box>
+    )
   }
-
-  componentDidMount() { 
-    this.fetchData();
-  }
-
-  render() {
-    if (this.state.isLoaded) {
-      return(
-        <Box>
-          <AlbumInfo album={this.state.album}/>
-          <AlbumViewList album={this.state.album}/>
-        </Box>
-      )
-    }
-    else
-      return(
-        <div>Loading</div>
-      )
-  }
+  else
+    return(
+      <div>Loading</div>
+    )
 }
-
-const AlbumViewWithRouter = withRouter(AlbumView)
-export { AlbumViewWithRouter as AlbumView };
 

@@ -12,7 +12,6 @@ export function PlayerSlider(props) {
     }
   },[props.audio]);
 
-  console.log("Creating new handleSliderChange");
   const handleSliderChange = (event, newTime) => {
     setSliderTime(newTime);
     props.audio.currentTime=newTime;
@@ -26,7 +25,7 @@ export function PlayerSlider(props) {
       max={(props.audio)? props.audio.duration:1}
       aria-label="Default" 
       color="info" 
-      onChange={(props.audio)? handleSliderChange:""}
+      onChange={(props.audio)? handleSliderChange:null}
     />
 
   )

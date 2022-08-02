@@ -22,6 +22,7 @@ const showArtists = (artists) => {
       to={"/artists/" + artist.id}
       underline="none"
       sx={{color:"info.main"}}
+      key={artist.id}
     >
       {artist.name}{i!=artists.length-1 ? ', ' : ''}
     </MuiLink>
@@ -45,6 +46,8 @@ const showUniqueTags = (songs) => {
       to={"/tags/" + tag.id}
       underline="none"
       sx={{color:"info.dark"}}
+      key={tag.id}
+
     >
     {tag.name}{i!=tagsUnique.length-1 ? ', ' : ''}
   </MuiLink>
