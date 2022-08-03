@@ -1,20 +1,9 @@
 import { URLMAIN } from "Consts"
+import {json, status} from "./Utilities"
+import {BaseAPI} from "./BaseAPI"
 
-export class AlbumAPI {
+export class AlbumAPI extends BaseAPI {
   
-  static async get(id) {
-    return fetch(URLMAIN + "/albums/" + id)
-    .then((response)=>{
-      return response.json();
-    })
-    // .then(
-      // (result) => {
-      //   console.log("Fetched object", result);
-      // },
-      // (error) => {
-      //   console.log("Fetch error",error)
-      // }
-    // )
-  }
+  static path = super.path + "/albums";
 
 }
