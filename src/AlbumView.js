@@ -6,23 +6,27 @@ import AlbumViewList from "./AlbumViewList";
 import { AlbumAPI } from "api/AlbumAPI"
 import { useState } from "react";
 import { useParams } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 export function AlbumView() {
   
   const [isLoaded, setIsLoaded] = useState(false); 
   const [album, setAlbum] = useState(null); 
+  const { enqueueSnackbar, closeSnack } = useSnackbar();
   const urlParams = useParams();
 
   const fetchData = () => {
-    console.log("Fetching data");
     AlbumAPI.get(urlParams.albumId)
     .then(
       (result) => {
+        enqueueSnackbar("Album received", { variant: 'info' });
         setIsLoaded(true);
         setAlbum(result);
       }
     )
-    .catch((error)=>{console.debug(error)})
+    .catch((error)=>{
+      enqueueSnackbar(error.message, { variant: 'error' });
+    })
   }
     
   useEffect(()=>fetchData(),[urlParams.albumId])

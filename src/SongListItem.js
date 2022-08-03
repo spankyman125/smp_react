@@ -5,9 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import React from 'react';
 
 import '@fontsource/roboto/300.css';
-import AddIcon from '@mui/icons-material/Add';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import Container from '@mui/material/Container';
 import { Link as MuiLink } from '@mui/material';
 import { useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
@@ -61,8 +59,6 @@ export function MoreMenu() {
     </React.Fragment>
   );
 }
-
-
 
 const PopupInfo = ({song}) => {
   return (
@@ -149,10 +145,10 @@ export default function SongListItem(props) {
           position: "absolute",
           top: "50%",
           paddingLeft: "16px",
-          display:"inline",
+          display:"inline-block",
           overflow:"hidden",
           textOverflow:"ellipsis",
-          width:"80%",
+          maxWidth: "80%",
           whiteSpace:"nowrap"
         }}>
           <ArtistsLinks artists={ song.artists }/>
