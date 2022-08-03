@@ -1,20 +1,19 @@
+import '@fontsource/roboto/300.css';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { Link as MuiLink } from '@mui/material/';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import React from 'react';
-
-import '@fontsource/roboto/300.css';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { Link as MuiLink } from '@mui/material';
-import { useContext } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { Player } from "./Player";
-import { PlayerContext } from "./PlayerContext";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Box } from '@mui/system';
+import Box  from '@mui/material/Box';
+import React, { useContext } from 'react';
+import { Link as RouterLink } from "react-router-dom";
+
+import { Player } from "app/components/top/player/Player";
+import { PlayerContext } from "app/contexts/PlayerContext";
 
 export function MoreMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -36,8 +35,8 @@ export function MoreMenu() {
         onClick={handleClick}
         className="showOnHover" 
         sx={{ 
-          width:"40px", 
-          display:"none",
+          width: "40px", 
+          display: "none",
           "@media(any-pointer: coarse)": {
             display:"inline-flex"
           }  
@@ -45,7 +44,7 @@ export function MoreMenu() {
         <MoreHorizIcon/>
       </IconButton>
       <Menu
-        id="basic-menu"
+        id= "basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -69,8 +68,8 @@ const PopupInfo = ({song}) => {
       <IconButton 
         className="hideOnHover"
         sx={{
-          width:"40px",
-          display:"inline-flex",
+          width: "40px",
+          display: "inline-flex",
           "@media(any-pointer: coarse)":{ 
             display:"none"
           }
@@ -79,17 +78,6 @@ const PopupInfo = ({song}) => {
         <ListItemText secondary={new Date(1000 * song.duration).toISOString().substring(14, 19)} />
       </IconButton>
       <MoreMenu/>
-      {/* <IconButton 
-        className="showOnHover" 
-        sx={{ 
-          width:"40px", 
-          display:"none",
-          "@media(any-pointer: coarse)": {
-            display:"inline-flex"
-          }  
-        }}>
-        <MoreHorizIcon/>
-      </IconButton> */}
     </React.Fragment>
   )
 }
@@ -131,25 +119,25 @@ export default function SongListItem(props) {
         sx= {{
           ':hover': {'.showOnHover': { display:"inline-flex" }, '.hideOnHover': {display:"none"}}, 
           "boxShadow": (!queueIsEmpty && currentSong.id === song.id? "inset 0px 0px 0px 1px grey":"")
-          }}
+        }}
         secondaryAction= {<PopupInfo song={ song }/>}
       >
         <ListItemButton sx={{ height: 64 }} component={ RouterLink } to={ "./songs/" + song.id } onClick={onSongClick}>
           <ListItemText 
             primary={ `${props.index + 1}. ${song.title}`} 
-            primaryTypographyProps={{noWrap:true, paddingRight:"100px"}}
-            sx={{position:"absolute", top:"0px", paddingTop:"8px"}}
+            primaryTypographyProps={{noWrap: true, paddingRight: "100px"}}
+            sx={{position: "absolute", top: "0px", paddingTop: "8px"}}
           />
         </ListItemButton>
         <Box sx={{
           position: "absolute",
           top: "50%",
           paddingLeft: "16px",
-          display:"inline-block",
-          overflow:"hidden",
-          textOverflow:"ellipsis",
+          display: "inline-block",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
           maxWidth: "80%",
-          whiteSpace:"nowrap"
+          whiteSpace: "nowrap"
         }}>
           <ArtistsLinks artists={ song.artists }/>
         </Box>

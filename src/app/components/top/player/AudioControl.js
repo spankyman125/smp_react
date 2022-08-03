@@ -1,7 +1,7 @@
-import { Player } from "Player";
+import { Player } from "./Player";
 import { useContext, useState } from "react";
-import { URLMAIN } from "./Consts";
-import { PlayerContext } from "./PlayerContext";
+import { URLMAIN } from "../../../Consts";
+import { PlayerContext } from "../../../contexts/PlayerContext";
 import { PlayerSlider } from "./PlayerSlider";
 
 export function AudioControl(props) {

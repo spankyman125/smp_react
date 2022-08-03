@@ -7,10 +7,10 @@ import { SnackbarProvider } from 'notistack';
 
 import Stack from '@mui/material/Stack';
 import { song, song2, song3, song4, theme } from "./Consts";
-import { PlayerContext } from "./PlayerContext";
-import SmpAppBar from "./SmpAppBar";
-import SmpBottomAppBar from "./SmpBottomAppBar";
-import useWindowDimensions from "./ViewPortSizeHook";
+import { PlayerContext } from "./contexts/PlayerContext";
+import SmpAppBar from "./components/top/SmpAppBar";
+import SmpBottomAppBar from "./components/bottom/SmpBottomAppBar";
+import useWindowDimensions from "./hooks/ViewPortSizeHook";
 import { API } from "api/API"
 
 export function App() {
@@ -35,7 +35,7 @@ export function App() {
               </Grid>
               <Grid item xl={4} md={4} xs={0}>
                 <Box sx={{ position:"sticky", top:"80px" }}>
-                  {/* <SongsViewList height={ height-64 }/> */}
+                  {/* <RightPanel height={ height-64 }/> */}
                 </Box>
               </Grid>
             </Grid>

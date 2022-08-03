@@ -9,9 +9,9 @@ import Typography from '@mui/material/Typography';
 import { useContext } from "react";
 
 import { AudioControl } from "./AudioControl";
-import { URLMAIN } from "./Consts";
+import { URLMAIN } from "../../../Consts";
 import { Player } from "./Player";
-import { PlayerContext } from "./PlayerContext";
+import { PlayerContext } from "../../../contexts/PlayerContext";
 
 //TODO: Handle no queue state
 export default function PlayerView(props) {

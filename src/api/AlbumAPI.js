@@ -1,4 +1,3 @@
-import { URLMAIN } from "Consts"
 import {json, status} from "./Utilities"
 import {BaseAPI} from "./BaseAPI"
 

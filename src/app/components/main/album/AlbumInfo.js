@@ -3,8 +3,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Link as RouterLink } from "react-router-dom";
 
-import { URLMAIN } from "./Consts";
-import HeaderInfo from "./HeaderInfo";
+import { URLMAIN } from "app/Consts";
+import HeaderInfo from "app/components/main/HeaderInfo";
 
 export default function AlbumInfo(props) {
   return (

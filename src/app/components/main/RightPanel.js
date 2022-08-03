@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
+// import SongListItem from "app/components/main/song/SongListItem"
 
-export default function SongsViewList(props) {
+export default function RightPanel(props) {
   return (
     <Box sx= {{ 
       width: '100%', 

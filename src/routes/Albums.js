@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AlbumView } from "AlbumView"
+import { AlbumView } from "app/components/main/album/AlbumView"
 
 export const Albums = () => {
   return (

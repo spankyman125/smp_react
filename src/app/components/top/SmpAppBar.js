@@ -10,7 +10,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import PlayerView from "./PlayerView";
+import PlayerView from "./player/PlayerView";
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 

@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
-import SongListItem from "./SongListItem";
+import SongListItem from "app/components/main/song/SongListItem";
 
-export default function AlbumViewList(props) {
+export default function SongsList(props) {
   return (
     <Box>
       {
