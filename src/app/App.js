@@ -26,10 +26,16 @@ export function App() {
   return(
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-      <SnackbarProvider maxSnack={3}>
+      <SnackbarProvider 
+        maxSnack={3}
+        autoHideDuration={1500}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}>
         <Stack sx={{ minHeight:"100vh", p: {md:"0px 24px 0px 24px", xs:"0px 0px 0px 0px"} }} >
           <PlayerContext.Provider value={ PlayerContextValue }>
-            <SmpAppBar />
+          <SmpBottomAppBar/>
             <Grid container sx={{ borderRight:"1px dashed gray", borderLeft:"1px dashed gray", flex:"1 0 auto" }}>
               <Grid item xl={8} md={8} xs={12} sx={{ p:"24px 0px 0px 2vw", borderRight:"1px dashed gray" }}>
                 <Outlet />
@@ -40,7 +46,7 @@ export function App() {
                 </Box>
               </Grid>
             </Grid>
-            <SmpBottomAppBar/>
+            <SmpAppBar />
           </PlayerContext.Provider>
         </Stack>
       </SnackbarProvider>

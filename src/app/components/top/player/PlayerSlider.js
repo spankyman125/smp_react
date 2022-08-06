@@ -2,26 +2,29 @@ import Slider from '@mui/material/Slider';
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import { Typography } from '@mui/material';
 
 const MySlider = styled(Slider)(({ theme }) => ({
-  height: 6,
   padding: 0,
+  "@media(any-pointer: coarse)": {
+    padding:"0px 0px 0px 0px"
+  },
   '& .MuiSlider-thumb': {
-    height: 8,
-    width: 8,
+    height: 12,
+    width: 12,
     backgroundColor: '#fff',
     '&:focus, &:hover, &.Mui-active': {
       boxShadow:
-        '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.02)',
+        '0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)',
     },
   },
   '& .MuiSlider-valueLabel': {
     fontSize: 12,
     fontWeight: 'normal',
-    top: 40,
-    color: theme.palette.text.primary,
+    top: 36,
+    backgroundColor: 'unset',
+    width:'100%',
+    color: "#fff",
     '&:before': {
       display: 'none',
     },
@@ -34,14 +37,8 @@ const MySlider = styled(Slider)(({ theme }) => ({
     opacity: 0.3,
     backgroundColor: '#bfbfbf',
   },
-  '& .MuiSlider-mark': {
-    backgroundColor: '#bfbfbf',
-    height: 8,
-    width: 1,
-    '&.MuiSlider-markActive': {
-      opacity: 1,
-      backgroundColor: 'currentColor',
-    },
+  '& .MuiSlider-track': {
+    border:"0px",
   },
 }));
 
@@ -69,25 +66,24 @@ export function PlayerSlider(props) {
 
   return (
     <React.Fragment>
-      {/* <MySlider
-        valueLabelDisplay='auto'
-        value={sliderTime}
-        scale={calculateValue}
-        min={0}
-        step={0.1}
-        max={(props.audio)? props.audio.duration:1}
-        aria-label="Default" 
-        color="info" 
-        onChange={(props.audio)? handleSliderChange:null}
-      />
       <Box sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+          display: 'flex',
+          alignItems: 'center',
       }}>
-        <Typography variant='subtitle2'>{(props.audio)? calculateValue(sliderTime):"0:00"}</Typography>
-        <Typography variant='subtitle2'>{(props.audio)? calculateValue(props.audio.duration):"0:00"}</Typography>
-      </Box> */}
+        <Typography variant='subtitle2' sx={{p:"0px 12px 0px 12px"}}>{(props.audio)? calculateValue(sliderTime):"0:00"}</Typography>
+        <MySlider
+          valueLabelDisplay='auto'
+          value={sliderTime}
+          scale={calculateValue}
+          min={0}
+          step={0.1}
+          max={(props.audio && props.audio.duration)? props.audio.duration:1}
+          color="info" 
+          onChange={(props.audio)? handleSliderChange:null}
+          sx={{height:"12px"}}
+        />
+        <Typography variant='subtitle2'sx={{p:"0px 12px 0px 12px"}}>{(props.audio && props.audio.duration)? calculateValue(props.audio.duration):"0:00"}</Typography>
+      </Box>
     </React.Fragment>
   )
 

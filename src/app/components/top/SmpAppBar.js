@@ -37,7 +37,8 @@ const SmpAppBar = () => {
 
   return (
     <React.Fragment>
-      <AppBar position="sticky" sx={{top:"0px",left:"0px"}}>
+      <AppBar position="sticky" sx={{bottom:"0px"}}>
+        <AudioControl/>
         <Toolbar  sx={{p:"0px 8px 0px 8px"}}>
           <MusicNoteIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
@@ -89,9 +90,6 @@ const SmpAppBar = () => {
             </Menu>
           </Box>
         </Toolbar>
-        <Box sx={{p:"0px 20px 0px 20px"}}>
-          <AudioControl/>
-        </Box>
       </AppBar>
     </React.Fragment>
   );
