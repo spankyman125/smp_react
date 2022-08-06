@@ -8,6 +8,7 @@ import { AlbumAPI } from "api/AlbumAPI"
 import { useState } from "react";
 import { useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import Skeleton from '@mui/material/Skeleton';
 
 export function AlbumView() {
   
@@ -42,7 +43,7 @@ export function AlbumView() {
   }
   else
     return(
-      <div>Loading</div>
+      <Skeleton variant="rectangular" width={200} height={200} />
     )
 }
 

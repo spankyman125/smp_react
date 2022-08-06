@@ -9,13 +9,13 @@ import { SnackbarProvider } from 'notistack';
 import Stack from '@mui/material/Stack';
 import { song, song2, song3, song4, theme } from "./Consts";
 import { PlayerContext } from "./contexts/PlayerContext";
-import SmpAppBar from "./components/top/SmpAppBar";
-import SmpBottomAppBar from "./components/bottom/SmpBottomAppBar";
+import SmpAppBar from "./components/bottom/SmpAppBar";
+import SmpBottomAppBar from "./components/top/SmpBottomAppBar";
 import useWindowDimensions from "./hooks/ViewPortSizeHook";
 import { API } from "api/API"
 
 export function App() {
-  window.api = API; //Temp
+  window.api = API; //For debug purposes
   const { height, width } = useWindowDimensions();
   const [playerContext, setPlayerContext] = useState({
       queue: {position:0, songs:[]},

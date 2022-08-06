@@ -13,7 +13,7 @@ import React, { useContext } from 'react';
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { Player } from "app/components/top/player/Player";
+import { Player } from "app/components/bottom/player/Player";
 import { PlayerContext } from "app/contexts/PlayerContext";
 
 export function MoreMenu() {
