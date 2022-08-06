@@ -11,7 +11,7 @@ export function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />}>
+        <Route exact path="/" element={<App />}>
           {Home()}
           {Albums()}
           {Artists()}

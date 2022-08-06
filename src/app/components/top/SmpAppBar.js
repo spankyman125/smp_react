@@ -11,6 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import PlayerView from "./player/PlayerView";
+import { AudioControl } from "./player/AudioControl";
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -36,63 +37,63 @@ const SmpAppBar = () => {
 
   return (
     <React.Fragment>
-      <AppBar position="sticky">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters >
-            <MusicNoteIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-                flexShrink:0
+      <AppBar position="sticky" sx={{top:"0px",left:"0px"}}>
+        <Toolbar  sx={{p:"0px 8px 0px 8px"}}>
+          <MusicNoteIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              flexShrink:0
+            }}
+          >
+            SMP
+          </Typography>
+          <PlayerView/>
+          <Box sx={{ flexGrow: 0, display: { xs: 'none', sm: 'flex' } }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} >
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
               }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
             >
-              SMP
-            </Typography>
-            <PlayerView/>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}></Box>
-            <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-          </Toolbar>
-        </Container>
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        </Toolbar>
+        <Box sx={{p:"0px 20px 0px 20px"}}>
+          <AudioControl/>
+        </Box>
       </AppBar>
-  </React.Fragment>
+    </React.Fragment>
   );
 };
 export default SmpAppBar;

@@ -4,11 +4,11 @@ import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import { IconButton, Stack } from '@mui/material';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
-import { useContext } from "react";
+import React, { useContext } from "react";
 
-import { AudioControl } from "./AudioControl";
 import { URLMAIN } from "../../../Consts";
 import { Player } from "./Player";
 import { PlayerContext } from "../../../contexts/PlayerContext";
@@ -42,41 +42,29 @@ export default function PlayerView(props) {
   }
 
   return (
-    <Stack direction='row' width="100%" alignItems="center">
-      <Box sx = {{height: {lg:"48px",sm:"64px",xs:'48px'},  padding:"0px 10px 0px 10px",flexShrink: 0}}>
+    <React.Fragment>
+      <Box sx = {{height: {xs:"45px",md:"50px"},   flexShrink: 0}}>
         <img 
           alt="" 
-          src={
-            (queueIsEmpty? "" : URLMAIN + currentSong.cover_url )
-          } 
-          width="100%" 
+          src={(queueIsEmpty? URLMAIN + "/static/images/song_covers/default.png" : URLMAIN + currentSong.cover_url )} 
           height="100%" 
-          style={{borderRadius: "7%"}}
+          style={{borderRadius: "10%"}}
         />
       </Box>
-      <Stack direction={{lg:'row',sm:'column-reverse',xs:'row'}} spacing={0}>
-        <Stack direction='row'>
-          <IconButton onClick={prev}><SkipPreviousIcon/></IconButton>
-          <Checkbox 
-            checked={playerContext.isPlaying? true : false}
-            color='default' 
-            icon={<PlayArrowIcon/>} 
-            checkedIcon={<PauseIcon/>} 
-            onChange={togglePlay}  
-          />
-          <IconButton onClick={next}><SkipNextIcon/></IconButton>
-        </Stack>
-        <Stack direction='column'>
-          <Typography noWrap variant="body1">{(queueIsEmpty? "Queue is empty" : currentSong.title)}</Typography>
-          <Typography noWrap variant="caption" >{(queueIsEmpty? "" : currentSong.artists[0].name)}</Typography>
-        </Stack>
-      </Stack>
-      <Box sx={{ flexGrow: 1, p:"0px 10px 0px 10px", display: { xs: 'none', sm: 'flex' }}}>
-        <AudioControl/>
-          {/* <PlayerSlider audio={audio} /> */}
-        {/* </AudioControl> */}
+      <IconButton onClick={prev}><SkipPreviousIcon/></IconButton>
+      <Checkbox 
+        checked={playerContext.isPlaying? true : false}
+        color='default' 
+        icon={<PlayArrowIcon/>} 
+        checkedIcon={<PauseIcon/>} 
+        onChange={togglePlay}  
+      />
+      <IconButton onClick={next}><SkipNextIcon/></IconButton>
+      <Box sx={{minWidth: 0,flexGrow: 1,}}>
+        <Typography noWrap variant="body1">{(queueIsEmpty? "Queue is empty" : currentSong.title)}</Typography>
+        <Typography noWrap variant="subtitle2" >{(queueIsEmpty? "" : currentSong.artists[0].name)}</Typography>
       </Box>
-    </Stack>
+    </React.Fragment>
   );
 
 }

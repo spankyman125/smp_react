@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Box  from '@mui/material/Box';
 import React, { useContext } from 'react';
 import { Link as RouterLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Player } from "app/components/top/player/Player";
 import { PlayerContext } from "app/contexts/PlayerContext";
@@ -87,7 +88,7 @@ const ArtistsLinks = ({artists}) => {
     <MuiLink 
       variant="subtitle2"
       component={RouterLink} 
-      to={"/artists/" + artist.id}
+      to={"/artists/" + artist.id + "/songs"}
       underline="none"
       sx={{color:"info.main"}}
       key={artist.id}
@@ -101,9 +102,11 @@ export default function SongListItem(props) {
     const {playerContext, setPlayerContext} = useContext(PlayerContext);
     const song = props.data[props.index];
     let currentSong = null;
+    const navigate = useNavigate();
     
     const onSongClick = () => {
       console.log("Switched to song:",song)
+      navigate('./songs/'); //TODO: different on albumVIew and artisttabs
       Player.setQueue(playerContext, setPlayerContext,{position:0,songs:[song]});
     }
     
@@ -122,11 +125,12 @@ export default function SongListItem(props) {
         }}
         secondaryAction= {<PopupInfo song={ song }/>}
       >
-        <ListItemButton sx={{ height: 64 }} component={ RouterLink } to={ "./songs/" + song.id } onClick={onSongClick}>
+        <ListItemButton sx={{ height: 64 }} onClick={onSongClick}>
           <ListItemText 
             primary={ `${props.index + 1}. ${song.title}`} 
-            primaryTypographyProps={{noWrap: true, paddingRight: "100px"}}
-            sx={{position: "absolute", top: "0px", paddingTop: "8px"}}
+            primaryTypographyProps={{noWrap: true, paddingRight: "60px"}}
+            sx={{p: "0px 0px 16px 0px"}}
+            // sx={{position: "absolute", top: "0px", paddingTop: "8px"}}
           />
         </ListItemButton>
         <Box sx={{
@@ -136,8 +140,9 @@ export default function SongListItem(props) {
           display: "inline-block",
           overflow: "hidden",
           textOverflow: "ellipsis",
-          maxWidth: "80%",
-          whiteSpace: "nowrap"
+          maxWidth: "70%",
+          whiteSpace: "nowrap",
+          // display:"none"
         }}>
           <ArtistsLinks artists={ song.artists }/>
         </Box>

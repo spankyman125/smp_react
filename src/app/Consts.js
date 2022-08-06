@@ -1,6 +1,6 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-export const URLMAIN = "http://septerra.duckdns.org:33333";
+export const URLMAIN = "http://192.168.1.4:33333";
 
 export const theme = createTheme({
   palette: {

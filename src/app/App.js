@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, Grid } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
@@ -26,7 +27,7 @@ export function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline/>
       <SnackbarProvider maxSnack={3}>
-        <Stack sx={{ height:"100vh", p: {md:"0px 24px 0px 24px", xs:"0px 0px 0px 0px"} }} >
+        <Stack sx={{ minHeight:"100vh", p: {md:"0px 24px 0px 24px", xs:"0px 0px 0px 0px"} }} >
           <PlayerContext.Provider value={ PlayerContextValue }>
             <SmpAppBar />
             <Grid container sx={{ borderRight:"1px dashed gray", borderLeft:"1px dashed gray", flex:"1 0 auto" }}>

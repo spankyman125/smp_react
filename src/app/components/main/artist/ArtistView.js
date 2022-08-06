@@ -1,47 +1,60 @@
 import '@fontsource/roboto/300.css';
 import Box from '@mui/material/Box';
 import React, { useEffect } from 'react';
-import AlbumInfo from "./AlbumInfo";
-import AlbumViewList from "./AlbumViewList";
-import { AlbumAPI } from "api/AlbumAPI"
+import ArtistInfo from "./ArtistInfo";
+import { ArtistAPI } from "api/ArtistAPI"
 import { useState } from "react";
 import { useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import { ArtistTabs } from "./ArtistTabs"
+import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export function AlbumView() {
+export function ArtistView() {
   
   const [isLoaded, setIsLoaded] = useState(false); 
-  const [album, setAlbum] = useState(null); 
+  const [artist, setArtist] = useState(null); 
   const { enqueueSnackbar, closeSnack } = useSnackbar();
   const urlParams = useParams();
+  const navigate = useNavigate();
+
+  switch(urlParams.tab) {
+    case "songs":
+    case "albums":
+      break;
+    default:
+      navigate('./songs');
+      break;
+  }
 
   const fetchData = () => {
-    AlbumAPI.get(urlParams.albumId)
+    ArtistAPI.get(urlParams.artistId)
     .then(
       (result) => {
-        enqueueSnackbar("Album received", { variant: 'info' });
+        enqueueSnackbar("Artist received", { variant: 'info' });
         setIsLoaded(true);
-        setAlbum(result);
-      }
-    )
-    .catch((error)=>{
-      enqueueSnackbar(error.message, { variant: 'error' });
+        setArtist(result);
+      },
+      (error)=>{
+        enqueueSnackbar(error.message, { variant: 'error' });
     })
   }
     
-  useEffect(()=>fetchData(),[urlParams.albumId])
+  useEffect(()=>fetchData(),[urlParams.artistId])
     
   if (isLoaded) {
     return(
       <Box>
-        <AlbumInfo album={album}/>
-        <AlbumViewList album={album}/>
+        <ArtistInfo artist={artist}/>
+        <ArtistTabs artist={artist}/>
       </Box>
     )
   }
   else
     return(
-      <div>Loading</div>
+      <Box>
+        Loading artist 
+      </Box>
     )
 }
 

@@ -5,8 +5,8 @@ export default function SongsList(props) {
   return (
     <Box>
       {
-        props.album.songs.map((song, index) => (
-          <SongListItem data={props.album.songs} index={index} key={index}/>
+        props.songs.map((song, index) => (
+          <SongListItem data={props.songs} index={index} key={index}/>
         ))
       }
     </Box>
