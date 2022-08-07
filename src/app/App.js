@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 import { song, song2, song3, song4, theme } from "./Consts";
 import { PlayerContext } from "./contexts/PlayerContext";
 import SmpAppBar from "./components/bottom/SmpAppBar";
-import SmpBottomAppBar from "./components/top/SmpBottomAppBar";
+import TopBar from "./components/top/SmpBottomAppBar";
 import useWindowDimensions from "./hooks/ViewPortSizeHook";
 import { API } from "api/API"
 
@@ -35,7 +35,7 @@ export function App() {
         }}>
         <Stack sx={{ minHeight:"100vh", p: {md:"0px 24px 0px 24px", xs:"0px 0px 0px 0px"} }} >
           <PlayerContext.Provider value={ PlayerContextValue }>
-          <SmpBottomAppBar/>
+          <TopBar/>
             <Grid container sx={{ borderRight:"1px dashed gray", borderLeft:"1px dashed gray", flex:"1 0 auto" }}>
               <Grid item xl={8} md={8} xs={12} sx={{ p:"24px 0px 0px 2vw", borderRight:"1px dashed gray" }}>
                 <Outlet />
