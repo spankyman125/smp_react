@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { SnackbarProvider } from 'notistack';
-
+import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import { song, song2, song3, song4, theme } from "./Consts";
 import { PlayerContext } from "./contexts/PlayerContext";
@@ -36,10 +36,11 @@ export function App() {
         <Stack sx={{ minHeight:"100vh", p: {md:"0px 24px 0px 24px", xs:"0px 0px 0px 0px"} }} >
           <PlayerContext.Provider value={ PlayerContextValue }>
           <TopBar/>
-            <Grid container sx={{ borderRight:"1px dashed gray", borderLeft:"1px dashed gray", flex:"1 0 auto" }}>
-              <Grid item xl={8} md={8} xs={12} sx={{ p:"24px 0px 0px 2vw", borderRight:"1px dashed gray" }}>
+            <Grid container sx={{  flex:"1 0 auto" }}>
+              <Grid item xl={8} md={8} xs={12} sx={{ p:"24px 0px 0px 2vw"}}>
                 <Outlet />
               </Grid>
+              <Divider orientation="vertical" flexItem></Divider>
               <Grid item xl={4} md={4} xs={0}>
                 <Box sx={{ position:"sticky", top:"80px" }}>
                   {/* <RightPanel height={ height-64 }/> */}
