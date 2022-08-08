@@ -39,19 +39,13 @@ const showUniqueTags = (songs) => {
         idsUnique.add(tag.id);
       }
     }
-  return tagsUnique.map((tag, i) => (
-    <MuiLink 
-      variant="subtitle1"
-      component={RouterLink} 
-      to={"/tags/" + tag.id}
-      underline="none"
-      sx={{color:"info.dark"}}
-      key={tag.id}
-
-    >
-    {tag.name}{i!=tagsUnique.length-1 ? ', ' : ''}
-  </MuiLink>
-  ))
+  return (
+    <Typography variant="subtitle1" sx={{color:"info.dark"}}>
+      {tagsUnique.map((tag, i)=>(
+        tag.name + (i != tagsUnique.length-1 ? ', ' : '')
+      ))}
+    </Typography>
+  )
 }
 
 function AlbumInfoText(props) {
