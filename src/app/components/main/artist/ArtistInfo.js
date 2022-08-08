@@ -9,12 +9,12 @@ import HeaderInfo from "app/components/main/HeaderInfo";
 export default function ArtistInfo({artist}) {
   return (
     <HeaderInfo image={URLMAIN + artist.cover_url}>
-      <ArtistmInfoText artist={artist}/>
+      <ArtistInfoText artist={artist}/>
     </HeaderInfo>
   );
 }
 
-function ArtistmInfoText({artist}) {
+function ArtistInfoText({artist}) {
   return (
     <Box>
       <Typography variant="h6">
