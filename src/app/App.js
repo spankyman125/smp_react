@@ -16,7 +16,7 @@ import { API } from "api/API"
 
 export function App() {
   window.api = API; //For debug purposes
-  const { height, width } = useWindowDimensions();
+  // const { height, width } = useWindowDimensions();
   const [playerContext, setPlayerContext] = useState({
       queue: {position:0, songs:[]},
       isPlaying: false
@@ -37,10 +37,10 @@ export function App() {
           <PlayerContext.Provider value={ PlayerContextValue }>
           <TopBar/>
             <Grid container sx={{  flex:"1 0 auto" }}>
-              <Grid item xl={8} md={8} xs={12} sx={{ p:"24px 0px 0px 2vw"}}>
+              <Grid item xl={8} md={8} xs={12} sx={{ p:"0px 0px 0px 0px"}}>
                 <Outlet />
               </Grid>
-              <Divider orientation="vertical" flexItem></Divider>
+              <Divider orientation="vertical" flexItem/>
               <Grid item xl={4} md={4} xs={0}>
                 <Box sx={{ position:"sticky", top:"80px" }}>
                   {/* <RightPanel height={ height-64 }/> */}

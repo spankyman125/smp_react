@@ -7,7 +7,9 @@ import { useNavigate } from "react-router-dom";
 import SongsList from "../song/SongsList";
 
 import { CardsGrid } from "../CardsGrid"
+import { CardsList } from "../CardsList"
 import { AlbumCard } from "../album/AlbumCard"
+import { Grid } from '@mui/material';
 
 function TabPanel(props) {
   const { children, value, currentValue, ...other } = props;
@@ -48,7 +50,7 @@ export function ArtistTabs(props) {
           <SongsList songs={props.artist.songs}/>
         </TabPanel>
         <TabPanel value="albums" currentValue={urlParams.tab}>
-          <Box sx={{p:"10px 0px 10px 0px"}}>
+          <Box sx={{p:"12px 0px 12px 12px"}}>
             <CardsGrid>
               {props.artist.albums.map(
                 (album)=>(<AlbumCard key={album.id} album={album}/>)

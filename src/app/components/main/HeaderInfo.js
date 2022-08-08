@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 
 export default function HeaderInfo(props) {
   return (
-    <Grid container sx={{paddingBottom:"10px"}}>
+    <Grid container sx={{p:"12px 0px 12px 12px"}}>
       <Grid item sx={{ paddingRight:"10px"}}>
         <Box sx={{position:"relative", borderRadius:'50%',width:"200px",height:"200px"}}>
           <img src={props.image} width="100%" height="100%" style={{borderRadius: "7%"}}/>
