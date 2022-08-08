@@ -7,6 +7,14 @@ export class Player {
     setPlayerContext(contextClone);
   }
 
+  static addToQueue = (playerContext, setPlayerContext, song) => {
+    let contextClone = {...playerContext}
+    contextClone.queue.songs.push(song);
+    console.log(song, "added to queue",); 
+    console.log("Queue changed to",contextClone.queue); 
+    setPlayerContext(contextClone);
+  }
+
   static next = (playerContext, setPlayerContext) => {
     if(playerContext.queue.songs[playerContext.queue.position+1]) {  
       console.log("Switched to next song")

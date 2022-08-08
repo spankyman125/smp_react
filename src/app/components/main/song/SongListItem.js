@@ -16,23 +16,26 @@ import { useNavigate } from "react-router-dom";
 import { Player } from "app/components/bottom/player/Player";
 import { PlayerContext } from "app/contexts/PlayerContext";
 
-export function MoreMenu() {
+export function MoreMenu(props) {
+  const {playerContext, setPlayerContext} = useContext(PlayerContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleAddToQueue = () => {
+    Player.addToQueue(playerContext, setPlayerContext,props.song);
     setAnchorEl(null);
   };
 
   return (
     <React.Fragment>
       <IconButton 
-        // id="basic-button"
-        // aria-controls={open ? 'basic-menu' : undefined}
-        // aria-haspopup="true"
-        // aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         className="showOnHover" 
         sx={{ 
@@ -53,7 +56,7 @@ export function MoreMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Action 1</MenuItem>
+        <MenuItem onClick={handleAddToQueue}>Add to queue</MenuItem>
         <MenuItem onClick={handleClose}>Action 2</MenuItem>
       </Menu>
     </React.Fragment>
@@ -78,7 +81,7 @@ const PopupInfo = ({song}) => {
       >
         <ListItemText secondary={new Date(1000 * song.duration).toISOString().substring(14, 19)} />
       </IconButton>
-      <MoreMenu/>
+      <MoreMenu song={song}/>
     </React.Fragment>
   )
 }
@@ -106,7 +109,7 @@ export default function SongListItem(props) {
     
     const onSongClick = () => {
       console.log("Switched to song:",song)
-      navigate('./songs/'); //TODO: different on albumVIew and artisttabs
+      navigate('./songs/'); //TODO: add songId to url
       Player.setQueue(playerContext, setPlayerContext,{position:0,songs:[song]});
     }
     
