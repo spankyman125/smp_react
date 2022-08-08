@@ -26,14 +26,12 @@ export function AlbumCard({album}) {
         width="100%"
         sx={{borderRadius:"5%"}}>
       </Box>
-      <Box sx={{p:"0px 0px 0px 5px"}}>
         <Typography gutterBottom variant="subtitle2" noWrap>
           {album.title}
         </Typography>
         <Typography variant="subtitle2" color="text.secondary" noWrap>
           {album.release_date}
         </Typography>
-      </Box>
     </Box>
   );
 }
