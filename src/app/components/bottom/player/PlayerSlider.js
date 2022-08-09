@@ -1,8 +1,8 @@
-import Slider from '@mui/material/Slider';
-import React, { useState } from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import { styled } from '@mui/material/styles';
+import React, { useState } from 'react';
 
 const MySlider = styled(Slider)(({ theme }) => ({
   padding: 0,
@@ -48,7 +48,10 @@ export function PlayerSlider(props) {
 
   React.useEffect(() => {
     if (props.audio) {
-      const tmr = setInterval(() => {setSliderTime(props.audio.currentTime);}, 50);
+      const tmr = setInterval(() => {
+        if(!props.audio.paused)
+          setSliderTime(props.audio.currentTime);
+      }, 50);
       return () => clearInterval(tmr);
     }
   },[props.audio]);
