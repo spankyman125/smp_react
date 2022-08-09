@@ -2,16 +2,15 @@ import '@fontsource/roboto/300.css';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Link as MuiLink } from '@mui/material/';
+import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Box  from '@mui/material/Box';
 import React, { useContext } from 'react';
 import { Link as RouterLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 import { Player } from "app/components/bottom/player/Player";
 import { PlayerContext } from "app/contexts/PlayerContext";
@@ -69,7 +68,7 @@ const PopupInfo = ({song}) => {
       <IconButton>
         <FavoriteBorderIcon/>
       </IconButton>
-      <IconButton 
+      <Box 
         className="hideOnHover"
         sx={{
           width: "40px",
@@ -80,7 +79,7 @@ const PopupInfo = ({song}) => {
         }}
       >
         <ListItemText secondary={new Date(1000 * song.duration).toISOString().substring(14, 19)} />
-      </IconButton>
+      </Box>
       <MoreMenu song={song}/>
     </React.Fragment>
   )
@@ -104,12 +103,13 @@ const ArtistsLinks = ({artists}) => {
 export default function SongListItem(props) {
     const {playerContext, setPlayerContext} = useContext(PlayerContext);
     const song = props.data[props.index];
+    if(!song)
+      return 
     let currentSong = null;
-    const navigate = useNavigate();
     
     const onSongClick = () => {
       console.log("Switched to song:",song)
-      navigate('./songs/'); //TODO: add songId to url
+      // navigate('./songs/'); //TODO: add songId to url
       Player.setQueue(playerContext, setPlayerContext,{position:0,songs:[song]});
     }
     
@@ -119,12 +119,12 @@ export default function SongListItem(props) {
     }
     
     return (
-      <ListItem 
-        key={ props.index } 
+      <ListItem
+        key={ props.index + song.id } 
         disablePadding 
         sx= {{
           ':hover': {'.showOnHover': { display:"inline-flex" }, '.hideOnHover': {display:"none"}}, 
-          "boxShadow": (!queueIsEmpty && currentSong.id === song.id? "inset 0px 0px 0px 1px grey":"")
+          "boxShadow": (!queueIsEmpty && currentSong.id === song.id? "inset 0px 0px 0px 1px grey":""),
         }}
         secondaryAction= {<PopupInfo song={ song }/>}
       >
@@ -139,6 +139,7 @@ export default function SongListItem(props) {
         <Box sx={{
           position: "absolute",
           top: "50%",
+          left: "0%",
           paddingLeft: "16px",
           display: "inline-block",
           overflow: "hidden",
