@@ -1,6 +1,6 @@
 import { Player } from "./Player";
 import { useContext, useState } from "react";
-import { URLMAIN } from "../../../Consts";
+import { URLMAIN_STATIC } from "../../../Consts";
 import { PlayerContext } from "../../../contexts/PlayerContext";
 import { PlayerSlider } from "./PlayerSlider";
 
@@ -10,7 +10,7 @@ export function AudioControl(props) {
   const [audio, setAudio] = useState(null);
 
   if(!audio && playerContext.queue.songs.length!==0) {
-    setAudio(new Audio(URLMAIN + playerContext.queue.songs[playerContext.queue.position].file_url))
+    setAudio(new Audio(URLMAIN_STATIC + playerContext.queue.songs[playerContext.queue.position].file_url))
   }
 
   if(audio) {
@@ -27,10 +27,10 @@ export function AudioControl(props) {
     else
       audio.pause()
   
-    if(audio.src != URLMAIN + playerContext.queue.songs[playerContext.queue.position].file_url) {
+    if(audio.src != URLMAIN_STATIC + playerContext.queue.songs[playerContext.queue.position].file_url) {
       audio.pause();
       audio.removeEventListener('ended',onSongEnded);
-      let newAudio = new Audio(URLMAIN + playerContext.queue.songs[playerContext.queue.position].file_url);
+      let newAudio = new Audio(URLMAIN_STATIC + playerContext.queue.songs[playerContext.queue.position].file_url);
       newAudio.addEventListener('ended',onSongEnded);
       setAudio(newAudio);
       console.log("Audio src changed to", newAudio.src );

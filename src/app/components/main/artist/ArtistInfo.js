@@ -3,12 +3,12 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Link as RouterLink } from "react-router-dom";
 
-import { URLMAIN } from "app/Consts";
+import { URLMAIN_STATIC } from "app/Consts";
 import HeaderInfo from "app/components/main/HeaderInfo";
 
 export default function ArtistInfo({artist}) {
   return (
-    <HeaderInfo image={URLMAIN + artist.cover_url}>
+    <HeaderInfo image={URLMAIN_STATIC + artist.cover_url}>
       <ArtistInfoText artist={artist}/>
     </HeaderInfo>
   );

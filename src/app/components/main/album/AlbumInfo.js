@@ -3,12 +3,12 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Link as RouterLink } from "react-router-dom";
 
-import { URLMAIN } from "app/Consts";
+import { URLMAIN_STATIC } from "app/Consts";
 import HeaderInfo from "app/components/main/HeaderInfo";
 
 export default function AlbumInfo(props) {
   return (
-    <HeaderInfo image={URLMAIN + props.album.cover_url}>
+    <HeaderInfo image={URLMAIN_STATIC + props.album.cover_url}>
       <AlbumInfoText album={props.album}/>
     </HeaderInfo>
   );

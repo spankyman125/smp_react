@@ -1,6 +1,7 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-export const URLMAIN = "http://192.168.1.4:33333";
+export const URLMAIN_STATIC = "http://192.168.1.4:4444/";
+export const URLMAIN_API = "http://192.168.1.4:33333";
 
 export const theme = createTheme({
   palette: {

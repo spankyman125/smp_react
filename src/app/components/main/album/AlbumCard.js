@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box, CardActionArea } from '@mui/material';
-import { URLMAIN } from 'app/Consts';
+import { URLMAIN_STATIC } from 'app/Consts';
 import { useNavigate } from "react-router-dom";
 
 export function AlbumCard({album}) {
@@ -21,7 +21,7 @@ export function AlbumCard({album}) {
     > 
       <Box
         component="img" 
-        src={URLMAIN + album.cover_url}
+        src={URLMAIN_STATIC + album.cover_url}
         alt={album.title}
         width="100%"
         sx={{borderRadius:"5%"}}>

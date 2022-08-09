@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Box, CardActionArea } from '@mui/material';
-import { URLMAIN } from 'app/Consts';
+import { URLMAIN_STATIC } from 'app/Consts';
 import { useNavigate } from "react-router-dom";
 
 export function ArtistCard({artist}) {
@@ -21,7 +21,7 @@ export function ArtistCard({artist}) {
     > 
       <Box
         component="img" 
-        src={URLMAIN + artist.cover_url}
+        src={URLMAIN_STATIC + artist.cover_url}
         alt={artist.name}
         width="100%"
         sx={{borderRadius:"50%"}}>

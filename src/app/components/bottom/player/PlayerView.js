@@ -9,7 +9,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 import React, { useContext } from "react";
 
-import { URLMAIN } from "../../../Consts";
+import { URLMAIN_STATIC } from "../../../Consts";
 import { Player } from "./Player";
 import { PlayerContext } from "../../../contexts/PlayerContext";
 
@@ -46,7 +46,7 @@ export default function PlayerView(props) {
       <Box sx = {{height: {xs:"45px",md:"50px"},   flexShrink: 0}}>
         <img 
           alt="" 
-          src={(queueIsEmpty? URLMAIN + "/static/images/song_covers/default.png" : URLMAIN + currentSong.cover_url )} 
+          src={(queueIsEmpty? URLMAIN_STATIC + "/static/images/song_covers/default.png" : URLMAIN_STATIC + currentSong.cover_url )} 
           height="100%" 
           style={{borderRadius: "10%"}}
         />
