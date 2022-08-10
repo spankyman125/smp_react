@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import { Link as RouterLink } from "react-router-dom";
 
 import { URLMAIN_STATIC } from "app/Consts";
-import HeaderInfo from "app/components/main/HeaderInfo";
+import HeaderInfo from "../HeaderInfo";
 
 export default function ArtistInfo({artist}) {
   return (

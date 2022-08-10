@@ -2,13 +2,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 import { IconButton, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import SongsList from 'app/components/main/song/SongsList';
+import SongsList from 'app/components/main/left/song/SongsList';
 import { PlayerContext } from "app/contexts/PlayerContext";
 import React, { useContext, useState } from 'react';
 
 export function QueuePanel(props) {
   const {playerContext, setPlayerContext} = useContext(PlayerContext);
-  const [isOpened, setIsOpened] = useState(true);
+  const [isOpened, setIsOpened] = useState(false);
 
   const onOpenClick = () => {
     setIsOpened(true);

@@ -9,16 +9,15 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import React, { useContext } from 'react';
+import { Player } from "app/Player";
+import React from 'react';
 import { Link as RouterLink } from "react-router-dom";
 
-import { Player } from "app/components/bottom/player/Player";
-import { PlayerContext } from "app/contexts/PlayerContext";
 
 export function MoreMenu(props) {
-  const {playerContext, setPlayerContext} = useContext(PlayerContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -62,7 +61,7 @@ export function MoreMenu(props) {
   );
 }
 
-const PopupInfo = ({song}) => {
+const PopupInfo = (props) => {
   return (
     <React.Fragment>
       <IconButton>
@@ -78,9 +77,9 @@ const PopupInfo = ({song}) => {
           }
         }}
       >
-        <ListItemText secondary={new Date(1000 * song.duration).toISOString().substring(14, 19)} />
+        <ListItemText secondary={new Date(1000 * props.song.duration).toISOString().substring(14, 19)} />
       </Box>
-      <MoreMenu song={song}/>
+      <MoreMenu song={props.song} playerContext={props.playerContext} setPlayerContext={props.setPlayerContext}/>
     </React.Fragment>
   )
 }
@@ -101,39 +100,29 @@ const ArtistsLinks = ({artists}) => {
 }
 
 export default function SongListItem(props) {
-    const {playerContext, setPlayerContext} = useContext(PlayerContext);
-    const song = props.data[props.index];
-    if(!song)
-      return 
-    let currentSong = null;
-    
+    const song = props.song;
     const onSongClick = () => {
       console.log("Switched to song:",song)
       // navigate('./songs/'); //TODO: add songId to url
       Player.unshift(song);
     }
     
-    const queueIsEmpty = (playerContext.queue.songs.length===0)? true : false
-    if(!queueIsEmpty) {
-      currentSong = playerContext.queue.songs[playerContext.queue.position];
-    }
     
     return (
       <ListItem
-        key={ props.index + song.id } 
+        key={ props.index + song.id  } 
         disablePadding 
         sx= {{
           ':hover': {'.showOnHover': { display:"inline-flex" }, '.hideOnHover': {display:"none"}}, 
-          "boxShadow": (!queueIsEmpty && currentSong.id === song.id? "inset 0px 0px 0px 1px grey":""),
+          "boxShadow": (props.selected? "inset 0px 0px 0px 1px grey":""),
         }}
-        secondaryAction= {<PopupInfo song={ song }/>}
+        secondaryAction= {<PopupInfo song={song} playerContext={props.playerContext} setPlayerContext={props.setPlayerContext}/>}
       >
         <ListItemButton sx={{ height: 64 }} onClick={onSongClick}>
           <ListItemText 
             primary={ `${props.index + 1}. ${song.title}`} 
             primaryTypographyProps={{noWrap: true, paddingRight: "60px"}}
             sx={{p: "0px 0px 16px 0px"}}
-            // sx={{position: "absolute", top: "0px", paddingTop: "8px"}}
           />
         </ListItemButton>
         <Box sx={{
@@ -146,7 +135,6 @@ export default function SongListItem(props) {
           textOverflow: "ellipsis",
           maxWidth: "70%",
           whiteSpace: "nowrap",
-          // display:"none"
         }}>
           <ArtistsLinks artists={ song.artists }/>
         </Box>

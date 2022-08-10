@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import {HomeView} from "app/components/main/home/HomeView" 
+import {HomeView} from "app/components/main/left/home/HomeView" 
 
 export const Home = () => {
   return (

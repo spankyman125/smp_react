@@ -1,17 +1,15 @@
-import { Grid } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Stack from '@mui/material/Stack';
 import { ThemeProvider } from '@mui/material/styles';
 import { API } from "api/API";
 import { SnackbarProvider } from 'notistack';
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
-import { Player } from './components/bottom/player/Player';
-import SmpAppBar from "./components/bottom/SmpAppBar";
-import { QueuePanel } from "./components/right/QueuePanel";
-import TopBar from "./components/top/SmpBottomAppBar";
+import SmpAppBar from "./components/bottom/BottomBar";
+import { Main } from "./components/main/Main";
+import TopBar from "./components/top/TopBar";
 import { theme } from "./Consts";
 import { PlayerContext } from "./contexts/PlayerContext";
+import { Player } from './Player';
 
 export function App() {
   
@@ -19,6 +17,7 @@ export function App() {
     queue: {position:0, songs:[]},
     isPlaying: false
   });
+  
   window.api = API; //For debug purposes
   window.player = Player;
   Player.playerContext = playerContext;
@@ -38,21 +37,8 @@ export function App() {
         }}>
         <Stack sx={{ minHeight:"100vh", p: {md:"0px 24px 0px 24px", xs:"0px 0px 0px 0px"} }} >
           <PlayerContext.Provider value={ PlayerContextValue }>
-          <TopBar/>
-            <Grid container sx={{  flex:"1 0 auto" }}>
-              <Grid item md={8} xs={12}>
-                <Outlet />
-              </Grid>
-              <Grid item md={4} xs={0} zeroMinWidth
-                sx={{
-                  top: "0px",
-                  maxWidth: {xs:"100vw"},
-                  width: {xs:"100vw"},
-                }}
-              >
-                <QueuePanel/>
-              </Grid>
-            </Grid>
+            <TopBar/>
+            <Main/>
             <SmpAppBar />
           </PlayerContext.Provider>
         </Stack>

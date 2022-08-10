@@ -10,7 +10,7 @@ import React, { useContext } from "react";
 
 import { URLMAIN_STATIC } from "../../../Consts";
 import { PlayerContext } from "../../../contexts/PlayerContext";
-import { Player } from "./Player";
+import { Player } from "../../../Player";
 
 //TODO: Handle no queue state
 export default function PlayerView(props) {
@@ -30,7 +30,6 @@ export default function PlayerView(props) {
   function next () {
     Player.next();
   }
-  
 
   const prev = () => {
     Player.prev();

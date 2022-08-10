@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { ArtistView } from "app/components/main/artist/ArtistView"
+import { ArtistView } from "app/components/main/left/artist/ArtistView"
 import { Outlet } from "react-router-dom";
 import React from "react";
 
