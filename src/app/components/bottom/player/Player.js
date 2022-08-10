@@ -1,25 +1,92 @@
 export class Player {
 
-  static setQueue = (playerContext, setPlayerContext, queue) => {
-    let contextClone = {...playerContext}
-    contextClone.queue = queue;
-    console.log("Queue changed to",contextClone.queue); 
-    setPlayerContext(contextClone);
+  static playerContext = null;
+  static setPlayerContext = null;
+
+  // static clear = (queue) => {
+  //   this.setPlayerContext({
+  //     ...this.playerContext,
+  //     queue: {
+  //       songs:[],
+  //       position:0,
+  //     },
+  //     isPlaying: false
+  //   });
+  //   console.log("Queue cleared", queue); 
+  // }
+
+  static replace = (queue) => {
+    this.setPlayerContext({
+      ...this.playerContext,
+      queue: queue
+    });
+    console.log("Queue changed to", queue); 
   }
 
-  static addToQueue = (playerContext, setPlayerContext, song) => {
-    let contextClone = {...playerContext}
-    contextClone.queue.songs.push(song);
+  static insert = (song, position) => {
+    this.setPlayerContext({
+      ...this.playerContext, 
+      queue: {
+        ...this.playerContext.queue,
+        songs: [
+          ...this.playerContext.queue.songs.slice(0,position),
+          song,
+          ...this.playerContext.queue.songs.slice(position),
+        ]
+      }
+    });
     console.log(song, "added to queue",); 
-    console.log("Queue changed to",contextClone.queue); 
-    setPlayerContext(contextClone);
   }
 
-  static next = (playerContext, setPlayerContext) => {
-    if(playerContext.queue.songs[playerContext.queue.position+1]) {  
+  static remove = (position) => {
+    this.setPlayerContext({
+      ...this.playerContext, 
+      queue: {
+        ...this.playerContext.queue,
+        songs: this.playerContext.queue.songs.filter((song, i) => i!==position)
+      }
+    });
+    console.log("Song at position", position, "removed from queue",); 
+  }
+
+  static unshift = (song) => {
+    this.setPlayerContext({
+      ...this.playerContext, 
+      queue: {
+        ...this.playerContext.queue,
+        songs: [
+          song,
+          ...this.playerContext.queue.songs,
+        ]
+      }
+    });
+    console.log(song, "unshifted",); 
+  }
+
+  static push = (song) => {
+    this.setPlayerContext({
+      ...this.playerContext, 
+      queue: {
+        ...this.playerContext.queue,
+        songs: [
+          ...this.playerContext.queue.songs,
+          song
+        ]
+      }
+    });
+    console.log(song, "pushed",); 
+  }
+
+  static next = () => {
+    if(this.playerContext.queue.songs[this.playerContext.queue.position+1]) {  
+      this.setPlayerContext({
+        ...this.playerContext, 
+        queue: {
+          ...this.playerContext.queue,
+          position: this.playerContext.queue.position + 1,
+        }
+      });
       console.log("Switched to next song")
-      playerContext.queue.position += 1;
-      this.setQueue(playerContext, setPlayerContext, playerContext.queue);
       return true
     }
     else {
@@ -28,12 +95,17 @@ export class Player {
     }
   } 
 
-  static prev = (playerContext, setPlayerContext) => {
-    if(playerContext.queue.songs[playerContext.queue.position-1]){
+  static prev = () => {
+    if(this.playerContext.queue.songs[this.playerContext.queue.position-1]) {  
+      this.setPlayerContext({
+        ...this.playerContext, 
+        queue: {
+          ...this.playerContext.queue,
+          position: this.playerContext.queue.position - 1,
+        }
+      });
       console.log("Switched to prev song")
-      playerContext.queue.position -= 1;
-      this.setQueue(playerContext, setPlayerContext,playerContext.queue);
-      return true;
+      return true
     }
     else {
       console.log("No prev song")
@@ -41,21 +113,31 @@ export class Player {
     }
   } 
 
-  static pause = (playerContext, setPlayerContext) => {
-    playerContext.isPlaying = false;
-    console.log("Audio paused");
-    setPlayerContext({...playerContext});
-  }
-
-  static resume= (playerContext, setPlayerContext) => {
-    if(playerContext.queue.songs[playerContext.queue.position]) {
-      playerContext.isPlaying = true;
-      console.log("Audio resumed");
-      setPlayerContext({...playerContext});
+  static pause = () => {
+    if(this.playerContext.queue.songs[this.playerContext.queue.position]) {
+      this.setPlayerContext({
+        ...this.playerContext,
+        isPlaying: false,
+      });
+      console.log("Song paused");
     }
   }
 
-  static togglePlay = (playerContext, setPlayerContext) => {
-    playerContext.isPlaying ? this.pause(playerContext, setPlayerContext) : this.resume(playerContext, setPlayerContext);
+  static resume = () => {
+    if(this.playerContext.queue.songs[this.playerContext.queue.position]) {
+      this.setPlayerContext({
+        ...this.playerContext,
+        isPlaying: true,
+      });
+      console.log("Song resumed");
+    }
   }
+
+  static togglePlay = () => {
+    this.playerContext.isPlaying? 
+      this.pause() 
+      : 
+      this.resume();
+  }
+
 }

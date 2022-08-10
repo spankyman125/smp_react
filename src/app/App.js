@@ -6,6 +6,7 @@ import { API } from "api/API";
 import { SnackbarProvider } from 'notistack';
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { Player } from './components/bottom/player/Player';
 import SmpAppBar from "./components/bottom/SmpAppBar";
 import { QueuePanel } from "./components/right/QueuePanel";
 import TopBar from "./components/top/SmpBottomAppBar";
@@ -13,13 +14,18 @@ import { theme } from "./Consts";
 import { PlayerContext } from "./contexts/PlayerContext";
 
 export function App() {
-  window.api = API; //For debug purposes
+  
   const [playerContext, setPlayerContext] = useState({
-      queue: {position:0, songs:[]},
-      isPlaying: false
+    queue: {position:0, songs:[]},
+    isPlaying: false
   });
+  window.api = API; //For debug purposes
+  window.player = Player;
+  Player.playerContext = playerContext;
+  Player.setPlayerContext = setPlayerContext;
   const PlayerContextValue = { playerContext, setPlayerContext };
   console.log("App context",PlayerContextValue)
+
   return(
     <ThemeProvider theme={theme}>
       <CssBaseline/>
@@ -39,7 +45,6 @@ export function App() {
               </Grid>
               <Grid item md={4} xs={0} zeroMinWidth
                 sx={{
-                  // position: {md:"sticky", xs:"fixed"},
                   top: "0px",
                   maxWidth: {xs:"100vw"},
                   width: {xs:"100vw"},

@@ -28,7 +28,7 @@ export function MoreMenu(props) {
   };
 
   const handleAddToQueue = () => {
-    Player.addToQueue(playerContext, setPlayerContext,props.song);
+    Player.push(props.song);
     setAnchorEl(null);
   };
 
@@ -110,7 +110,7 @@ export default function SongListItem(props) {
     const onSongClick = () => {
       console.log("Switched to song:",song)
       // navigate('./songs/'); //TODO: add songId to url
-      Player.setQueue(playerContext, setPlayerContext,{position:0,songs:[song]});
+      Player.unshift(song);
     }
     
     const queueIsEmpty = (playerContext.queue.songs.length===0)? true : false

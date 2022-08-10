@@ -2,16 +2,15 @@ import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import { IconButton, Stack } from '@mui/material';
+import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 import React, { useContext } from "react";
 
 import { URLMAIN_STATIC } from "../../../Consts";
-import { Player } from "./Player";
 import { PlayerContext } from "../../../contexts/PlayerContext";
+import { Player } from "./Player";
 
 //TODO: Handle no queue state
 export default function PlayerView(props) {
@@ -29,16 +28,16 @@ export default function PlayerView(props) {
   // let audio = playerContext.audio;
 
   function next () {
-    Player.next(playerContext, setPlayerContext);
+    Player.next();
   }
   
 
   const prev = () => {
-    Player.prev(playerContext, setPlayerContext);
+    Player.prev();
   }
 
   const togglePlay = () => {
-    Player.togglePlay(playerContext, setPlayerContext);
+    Player.togglePlay();
   }
 
   return (

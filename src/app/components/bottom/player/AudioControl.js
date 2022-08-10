@@ -16,8 +16,8 @@ export function AudioControl(props) {
   if(audio) {
     const onSongEnded = (event) => {
       console.log('Song ended event');
-      if(!Player.next(playerContext, setPlayerContext)) {
-        Player.pause(playerContext, setPlayerContext);
+      if(!Player.next()) {
+        Player.pause();
         console.log('Queue is empty');
       }
     }
