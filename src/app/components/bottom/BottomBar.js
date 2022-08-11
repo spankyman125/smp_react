@@ -3,8 +3,9 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { AudioControl } from "../../AudioControl";
+
 import PlayerView from "./player/PlayerView";
+import { PlayerSlider } from './player/PlayerSlider';
 
 const Logo = () => {
   return (
@@ -36,7 +37,7 @@ const BottomBar = () => {
   return (
     <React.Fragment>
       <AppBar position="sticky" sx={{bottom:"0px"}}>
-        <AudioControl/>
+          <PlayerSlider/>
         <Toolbar sx={{p:"0px 8px 0px 8px"}}>
           <Logo/>
           <PlayerView/>

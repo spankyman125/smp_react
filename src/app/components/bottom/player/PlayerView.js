@@ -12,7 +12,6 @@ import { URLMAIN_STATIC } from "../../../Consts";
 import { PlayerContext } from "../../../contexts/PlayerContext";
 import { Player } from "../../../Player";
 
-//TODO: Handle no queue state
 export default function PlayerView(props) {
 
   const {playerContext, setPlayerContext} = useContext(PlayerContext);
@@ -25,7 +24,6 @@ export default function PlayerView(props) {
     position = playerContext.queue.position;
     currentSong = playerContext.queue.songs[position]
   }
-  // let audio = playerContext.audio;
 
   function next () {
     Player.next();

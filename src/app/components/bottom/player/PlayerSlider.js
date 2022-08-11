@@ -1,8 +1,10 @@
+import React, { useContext, useState } from 'react';
 import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
-import React, { useState } from 'react';
+
+import { PlayerContext } from "app/contexts/PlayerContext";
 
 const MySlider = styled(Slider)(({ theme }) => ({
   padding: 0,
@@ -42,23 +44,23 @@ const MySlider = styled(Slider)(({ theme }) => ({
   },
 }));
 
-export function PlayerSlider(props) {
+export function PlayerSlider() {
   
+  const {playerContext, setPlayerContext} = useContext(PlayerContext);
   const [sliderTime, setSliderTime] = useState(0);
 
   React.useEffect(() => {
-    if (props.audio) {
+    if (playerContext.audio) {
       const tmr = setInterval(() => {
-        if(!props.audio.paused)
-          setSliderTime(props.audio.currentTime);
+          setSliderTime(playerContext.audio.currentTime);
       }, 50);
       return () => clearInterval(tmr);
     }
-  },[props.audio]);
+  },[playerContext.audio]);
 
   const handleSliderChange = (event, newTime) => {
     setSliderTime(newTime);
-    props.audio.currentTime=newTime;
+    playerContext.audio.currentTime=newTime;
   };
 
   const calculateValue = (value) => {
@@ -73,19 +75,19 @@ export function PlayerSlider(props) {
           display: 'flex',
           alignItems: 'center',
       }}>
-        <Typography variant='subtitle2' sx={{p:"0px 12px 0px 12px"}}>{(props.audio)? calculateValue(sliderTime):"0:00"}</Typography>
+        <Typography variant='subtitle2' sx={{p:"0px 12px 0px 12px"}}>{(playerContext.audio)? calculateValue(sliderTime):"0:00"}</Typography>
         <MySlider
           valueLabelDisplay='auto'
           value={sliderTime}
           scale={calculateValue}
           min={0}
           step={0.1}
-          max={(props.audio && props.audio.duration)? props.audio.duration:1}
+          max={(playerContext.audio && playerContext.audio.duration)? playerContext.audio.duration:1}
           color="info" 
-          onChange={(props.audio)? handleSliderChange:null}
+          onChange={(playerContext.audio)? handleSliderChange:null}
           sx={{height:"12px"}}
         />
-        <Typography variant='subtitle2'sx={{p:"0px 12px 0px 12px"}}>{(props.audio && props.audio.duration)? calculateValue(props.audio.duration):"0:00"}</Typography>
+        <Typography variant='subtitle2'sx={{p:"0px 12px 0px 12px"}}>{(playerContext.audio && playerContext.audio.duration)? calculateValue(playerContext.audio.duration):"0:00"}</Typography>
       </Box>
     </React.Fragment>
   )

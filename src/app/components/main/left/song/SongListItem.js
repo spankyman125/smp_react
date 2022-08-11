@@ -102,9 +102,8 @@ const ArtistsLinks = ({artists}) => {
 export default function SongListItem(props) {
     const song = props.song;
     const onSongClick = () => {
-      console.log("Switched to song:",song)
       // navigate('./songs/'); //TODO: add songId to url
-      Player.unshift(song);
+      Player.switchTo(props.index); //diff on diff views
     }
     
     
