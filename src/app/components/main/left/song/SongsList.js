@@ -14,7 +14,7 @@ export const SongsList = ({songs, Render}) => {
           songs={songs}
           index={index}
           isSelected={currentSong && currentSong.id === song.id}
-          isPlaying={playerContext.isPlaying}
+          isPlaying={playerContext.isPlaying && currentSong && (currentSong.id === song.id)}
         />
       ))
     }</List>

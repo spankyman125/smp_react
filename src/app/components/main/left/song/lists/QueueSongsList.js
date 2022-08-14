@@ -23,7 +23,7 @@ export const QueueSongsList = ({songs}) => {
           song={song}
           index={index}
           isSelected={currentSong && (currentSong.id === song.id && index === playerContext.queue.position )}
-          isPlaying={playerContext.isPlaying}
+          isPlaying={playerContext.isPlaying && currentSong && (currentSong.id === song.id && index === playerContext.queue.position ) }
         />
       }
     />

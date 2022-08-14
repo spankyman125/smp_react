@@ -1,10 +1,10 @@
 import '@fontsource/roboto/300.css';
-import { Link as MuiLink } from '@mui/material/';
+import { Link as MuiLink, useTheme } from '@mui/material/';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { memo } from 'react';
 import { Link as RouterLink } from "react-router-dom";
+import { pulse } from "./effects/Pulse";
 
 const ArtistsLinks = ({artists}) => {
   return artists.map((artist, i) =>(
@@ -22,31 +22,32 @@ const ArtistsLinks = ({artists}) => {
   ))
 }
 
-export const SongListItem = ({song,index, onSongClick, children,isSelected}) => {
-
-    return (
-      <ListItem
-        disablePadding 
-        sx= {{
-          ':hover': {'.showOnHover': { display:"inline-flex" }, '.hideOnHover': {display:"none"}}, 
-          "boxShadow": (isSelected? "inset 0px 0px 0px 1px grey":""),
-          "> .MuiListItemButton-root": { //providing directly to ListItemButton has no effect
-            paddingRight: children? 
-              children.length * 40 + 10 + "px" //width of all icons + gap, prevents text overlapping buttons
-              :
-              "0px" 
-          }  
-        }}
-        secondaryAction= {children ||null}
-      >
-        <ListItemButton sx={{ height: 64 }} onClick={onSongClick}>
-          <ListItemText 
-            primary={ `${index + 1}. ${song.title}`} 
-            primaryTypographyProps={{noWrap: true}}
-            secondary={<ArtistsLinks artists={ song.artists }/>}
-            secondaryTypographyProps={{noWrap: true}}
-          />
-        </ListItemButton>
-      </ListItem>
-    );
+export const SongListItem = ({song, index, onSongClick, children, isSelected, isPlaying}) => {
+  const theme = useTheme();
+  return (
+    <ListItem
+      disablePadding 
+      sx= {{
+        animation: isPlaying && `${pulse(1,theme.palette.secondary.light)} 2s infinite`,
+        ':hover': {'.showOnHover': { display:"inline-flex" }, '.hideOnHover': {display:"none"}}, 
+        "boxShadow": (isSelected? `inset 0px 0px 0px 1px ${theme.palette.secondary.light}`:""),
+        "> .MuiListItemButton-root": { //providing directly to ListItemButton has no effect
+          paddingRight: children? 
+            children.length * 40 + 10 + "px" //width of all icons + gap, prevents text overlapping buttons
+            :
+            "0px"
+        },
+      }}
+      secondaryAction= {children ||null}
+    >
+      <ListItemButton sx={{ height: 64 }} onClick={onSongClick}>
+        <ListItemText 
+          primary={ `${index + 1}. ${song.title}`} 
+          primaryTypographyProps={{noWrap: true}}
+          secondary={<ArtistsLinks artists={ song.artists }/>}
+          secondaryTypographyProps={{noWrap: true}}
+        />
+      </ListItemButton>
+    </ListItem>
+  );
 }
