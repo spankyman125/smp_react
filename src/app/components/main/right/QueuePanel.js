@@ -1,21 +1,17 @@
 import CloseIcon from '@mui/icons-material/Close';
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
-import { IconButton, Typography } from '@mui/material';
+import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
-import SongsList from 'app/components/main/left/song/SongsList';
+import { QueueSongsList } from 'app/components/main/left/song/lists/QueueSongsList';
 import { PlayerContext } from "app/contexts/PlayerContext";
 import React, { useContext, useState } from 'react';
 
-export function QueuePanel(props) {
+export function QueuePanel() {
   const {playerContext, setPlayerContext} = useContext(PlayerContext);
   const [isOpened, setIsOpened] = useState(false);
 
-  const onOpenClick = () => {
-    setIsOpened(true);
-  }
-
-  const onCloseClick = () => {
-    setIsOpened(false);
+  const onOpenClick = (e) => {
+    setIsOpened(isOpened? false : true);
   }
 
   return (
@@ -27,19 +23,13 @@ export function QueuePanel(props) {
           position: {md:"sticky", xs:"fixed"},
           display: (isOpened? "":"none"), 
           backgroundColor: {md:"unset", xs:"background.paper"},
-          overflowY:"scroll",
+          overflowY:"hidden",
           height:{
             md:"calc(100vh - 86px)",
             xs:"calc(100vh - 69px)"
           }
       }}>
-          <Box sx={{display:"flex",justifyContent:"space-between"}}>
-            <Typography variant='h4' component="span">Queue</Typography>
-            <IconButton onClick={onCloseClick} sx={{display:(isOpened? "block" : "none")}}>
-              <CloseIcon fontSize='large'/>
-            </IconButton>
-          </Box>
-          <SongsList songs={playerContext.queue.songs}/>
+        <QueueSongsList songs={playerContext.queue.songs}/>
       </Box>
       <IconButton 
         onClick={onOpenClick} 
@@ -48,9 +38,9 @@ export function QueuePanel(props) {
           right:"16px",
           bottom:"86px",
           backgroundColor: "background.paper",
-          display:(isOpened? "none" : "block")
-        }}>
-        <QueueMusicIcon fontSize='large'/>
+        }}
+      >
+        {isOpened? <CloseIcon fontSize='large'/>:<QueueMusicIcon fontSize='large'/>}
       </IconButton>
     </React.Fragment>
   );

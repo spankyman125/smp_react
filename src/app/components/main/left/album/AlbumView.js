@@ -2,7 +2,7 @@ import '@fontsource/roboto/300.css';
 import Box from '@mui/material/Box';
 import React, { useEffect } from 'react';
 import AlbumInfo from "./AlbumInfo";
-import SongsList from "../song/SongsList";
+import { AlbumSongsList} from "../song/lists/AlbumSongsList";
 
 import { AlbumAPI } from "api/AlbumAPI"
 import { useState } from "react";
@@ -37,7 +37,7 @@ export function AlbumView() {
     return(
       <Box>
         <AlbumInfo album={album}/>
-        <SongsList songs={album.songs}/>
+        <AlbumSongsList songs={album.songs}/>
       </Box>
     )
   }

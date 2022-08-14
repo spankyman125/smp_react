@@ -4,7 +4,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-import SongsList from "../song/SongsList";
+import { ArtistSongsList } from "../song/lists/ArtistSongsList";
 
 import { CardsGrid } from "../CardsGrid"
 import { CardsList } from "../CardsList"
@@ -47,7 +47,7 @@ export function ArtistTabs(props) {
           </Tabs>
         </Box>
         <TabPanel value="songs" currentValue={urlParams.tab}>
-          <SongsList songs={props.artist.songs}/>
+          <ArtistSongsList songs={props.artist.songs}/>
         </TabPanel>
         <TabPanel value="albums" currentValue={urlParams.tab}>
           <Box sx={{p:"12px 0px 12px 12px"}}>
