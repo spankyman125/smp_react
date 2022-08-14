@@ -2,6 +2,7 @@ import { URLMAIN_STATIC } from "./Consts";
 
 export class Player {
   //TODO event listener on song pause\resumed event (caused by client, pause\play at iphone, etc) 
+  //TODO change audio.src instead of creating new one, would fix continuos playback on ios 
 
   static playerContext = null;
   static setPlayerContext = null;
@@ -49,17 +50,32 @@ export class Player {
   static remove = (position) => {
     if(this.playerContext.queue.songs[position]) {
       
-      let position = {...this.playerContext.queue.position};
-      if(this.playerContext.queue.position === this.playerContext.queue.songs.length - 1) {
-        position -= 1;
-      }
+      let currentPosition = this.playerContext.queue.position;
+      let newPosition = -1;
       
+      if(position < currentPosition)
+        newPosition = currentPosition - 1;
+        
+      if(position === currentPosition)
+        if(position === this.playerContext.queue.songs.length - 1)
+          newPosition =  currentPosition - 1;
+        else
+          newPosition =  currentPosition;
+
+      if(position > currentPosition)
+        newPosition = currentPosition;
+
+      if(newPosition === -1) {
+        this.clear();
+        return true;
+      }
+
       this.setPlayerContext({
         ...this.playerContext, 
-        audio: this.switchAudio(this.playerContext.queue.songs[position]),
+        audio: this.switchAudio(this.playerContext.queue.songs[newPosition]) ,
         queue: {
           ...this.playerContext.queue,
-          position: position,
+          position: newPosition,
           songs: this.playerContext.queue.songs.filter((song, i) => i !== position)
         }
       });
