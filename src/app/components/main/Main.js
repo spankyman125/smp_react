@@ -13,6 +13,7 @@ export const Main = () => {
           top: "0px",
           maxWidth: {xs:"100vw"},
           width: {xs:"100vw"},
+          overflowX: 'clip'
         }}
       >
         <QueuePanel/>
