@@ -13,7 +13,10 @@ import { alpha, styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
+import { UserAPI } from "api/UserAPI";
+import { URLMAIN_STATIC } from 'app/Consts';
+import { useSnackbar } from 'notistack';
+import React from 'react';
 
 
 const SearchBox = styled('div')(({ theme }) => ({
@@ -58,17 +61,37 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const UserProfile = () => {
-  
+
   // const [anchorElUser, setAnchorElUser] = React.useState(null);
-  
+  const [image, setImage] = React.useState(null);
+  const { enqueueSnackbar, closeSnack } = useSnackbar();
+
   // const handleOpenUserMenu = (event) => {
   //   setAnchorElUser(event.currentTarget);
   // };
 
-  return(
+  const fetchData = () => {
+    UserAPI.me()
+      .then(
+        (result) => {
+          setImage(URLMAIN_STATIC + result.image_url)
+          enqueueSnackbar("User info received", { variant: 'info' });
+        }
+      )
+      .catch((error) => {
+        enqueueSnackbar(error.message, { variant: 'error' });
+      })
+  }
+
+  React.useEffect(() => fetchData(), [])
+
+  return (
     <Tooltip title="Open profile">
       <IconButton>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+        <Avatar
+          alt="Avatar"
+          src={image}
+        />
       </IconButton>
     </Tooltip>
   )
@@ -77,7 +100,7 @@ const UserProfile = () => {
 const NavigationButtons = () => {
   const pages = ['Home', 'Collection'];
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -120,7 +143,7 @@ const NavigationMenu = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-  
+
   return (
     <React.Fragment>
       <Tooltip title="Open menu">
@@ -167,16 +190,16 @@ const TopBar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <NavigationMenu/>
+            <NavigationMenu />
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <NavigationButtons/>
+            <NavigationButtons />
           </Box>
           <Box>
-            <Search/>
+            <Search />
           </Box>
           <Box>
-            <UserProfile/>
+            <UserProfile />
           </Box>
         </Toolbar>
       </Container>
