@@ -22,9 +22,14 @@ export class Player {
   }
 
   static replace = (queue) => {
+    const newAudio = 
+      queue.songs[queue.position].id === this.playerContext.queue.songs[this.playerContext.queue.position]?.id?
+      this.playerContext.audio
+      :
+      this.switchAudio(queue.songs[queue.position]);
     this.setPlayerContext({
       ...this.playerContext,
-      audio: this.switchAudio(queue.songs[queue.position]),
+      audio: newAudio,
       queue: queue
     });
     console.log("Queue changed to", queue); 
