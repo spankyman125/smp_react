@@ -3,6 +3,7 @@ import { Link as MuiLink, useTheme } from '@mui/material/';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import { memo } from 'react';
 import { Link as RouterLink } from "react-router-dom";
 import { pulse } from "./effects/Pulse";
 
@@ -22,7 +23,7 @@ const ArtistsLinks = ({artists}) => {
   ))
 }
 
-export const SongListItem = ({song, index, onSongClick, children, isSelected, isPlaying}) => {
+export const SongListItem = memo(({song, index, onSongClick, children, isSelected, isPlaying}) => {
   const theme = useTheme();
   return (
     <ListItem
@@ -33,7 +34,7 @@ export const SongListItem = ({song, index, onSongClick, children, isSelected, is
         "boxShadow": (isSelected? `inset 0px 0px 0px 1px ${theme.palette.secondary.light}`:""),
         "> .MuiListItemButton-root": { //providing directly to ListItemButton has no effect
           paddingRight: children? 
-            children.length * 40 + 10 + "px" //width of all icons + gap, prevents text overlapping buttons
+            children.length * 40 + 5 + "px" //width of all icons + gap, prevents text overlapping buttons
             :
             "0px"
         },
@@ -50,4 +51,4 @@ export const SongListItem = ({song, index, onSongClick, children, isSelected, is
       </ListItemButton>
     </ListItem>
   );
-}
+})

@@ -1,8 +1,9 @@
 import '@fontsource/roboto/300.css';
 import Box from '@mui/material/Box';
 import { AlbumAPI } from "api/AlbumAPI";
+import { MainSongsContext } from 'app/contexts/MainSongsContext';
 import { useSnackbar } from 'notistack';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AlbumSongsList } from "../song/lists/AlbumSongsList";
 import { AlbumHeader } from "./AlbumHeader";
@@ -12,6 +13,7 @@ export const AlbumView = () => {
   const [album, setAlbum] = useState(null);
   const { enqueueSnackbar, closeSnack } = useSnackbar();
   const urlParams = useParams();
+  const { songs, setSongs } = useContext(MainSongsContext);
 
   const fetchData = () => {
     AlbumAPI.get(urlParams.albumId)
@@ -19,6 +21,7 @@ export const AlbumView = () => {
         (result) => {
           enqueueSnackbar("Album received", { variant: 'info' });
           setAlbum(result);
+          setSongs(result.songs)
         },
         (error) => {
           enqueueSnackbar(error.message, { variant: 'error' });
@@ -31,7 +34,7 @@ export const AlbumView = () => {
   return (
     <Box>
       <AlbumHeader album={album} />
-      <AlbumSongsList songs={album?.songs} />
+      <AlbumSongsList songs={songs} />
     </Box>
   )
 }

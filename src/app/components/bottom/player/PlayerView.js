@@ -6,6 +6,7 @@ import { IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
+import { Like } from 'app/components/main/left/song/lists/buttons/Like';
 import React, { useContext } from "react";
 
 import { URLMAIN_STATIC } from "../../../Consts";
@@ -23,13 +24,14 @@ export default function PlayerView(props) {
       <PlayToggle isPlaying={playerContext.isPlaying} />
       <NextButton />
       <SongInfo song={currentSong} />
+      {currentSong && <Like song={currentSong} />}
     </>
   );
 }
 
 const SongCover = ({ song }) => {
   return (
-    <Box sx={{ height: { xs: "45px", md: "50px" }}}>
+    <Box sx={{ height: { xs: "45px", md: "50px" } }}>
       <img
         alt="Song cover"
         src={URLMAIN_STATIC + (song?.cover_url || "/static/images/song_covers/default.png")}
@@ -70,7 +72,7 @@ const PreviousButton = () => {
 
 const SongInfo = ({ song }) => {
   return (
-    <Box sx={{ minWidth: 0, flexGrow: 1, }}>
+    <Box sx={{ minWidth: 0, flexGrow: 0, }}>
       <Typography noWrap variant="body1">
         {song?.title}
       </Typography>

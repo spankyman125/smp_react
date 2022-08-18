@@ -1,7 +1,8 @@
 import '@fontsource/roboto/300.css';
 import { ArtistAPI } from "api/ArtistAPI";
+import { MainSongsContext } from 'app/contexts/MainSongsContext';
 import { useSnackbar } from 'notistack';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArtistHeader } from "./ArtistHeader";
 import { ArtistTabs } from "./ArtistTabs";
@@ -11,6 +12,7 @@ export const ArtistView = () => {
   const { enqueueSnackbar, closeSnack } = useSnackbar();
   const urlParams = useParams();
   const navigate = useNavigate();
+  const { songs, setSongs } = useContext(MainSongsContext);
 
   switch (urlParams.tab) {
     case "songs":
@@ -27,6 +29,7 @@ export const ArtistView = () => {
         (result) => {
           enqueueSnackbar("Artist received", { variant: 'info' });
           setArtist(result);
+          setSongs(result.songs)
         },
         (error) => {
           enqueueSnackbar(error.message, { variant: 'error' });
@@ -38,7 +41,7 @@ export const ArtistView = () => {
   return (
     <>
       <ArtistHeader artist={artist} />
-      <ArtistTabs artist={artist} />
+      <ArtistTabs artist={artist} songs={songs}/>
     </>
   )
 }

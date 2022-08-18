@@ -8,7 +8,6 @@ import React, { useContext, useState } from 'react';
 import Slide from '@mui/material/Slide';
 
 export function QueuePanel() {
-  const { playerContext, setPlayerContext } = useContext(PlayerContext);
   const [isOpened, setIsOpened] = useState(false);
 
   const onOpenClick = (e) => {
@@ -30,7 +29,7 @@ export function QueuePanel() {
               xs: "calc(100vh - 69px)"
             }
           }}>
-          <QueueSongsList songs={playerContext.queue.songs} />
+          <QueueSongsList />
         </Box>
       </Slide>
       <IconButton

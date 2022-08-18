@@ -1,19 +1,16 @@
-import React, { useEffect } from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ArtistSongsList } from "../song/lists/ArtistSongsList";
 
-import { CardsGrid } from "../CardsGrid"
-import { CardsList } from "../CardsList"
-import { AlbumCard } from "../album/AlbumCard"
-import { Grid } from '@mui/material';
+import { AlbumCard } from "../album/AlbumCard";
+import { CardsGrid } from "../CardsGrid";
 
 function TabPanel(props) {
   const { children, value, currentValue, ...other } = props;
-
+  
   return (
     <div
       role="tabpanel"
@@ -29,12 +26,12 @@ function TabPanel(props) {
   );
 }
 
-export function ArtistTabs({ artist }) {
+export function ArtistTabs({ artist, songs }) {
   const urlParams = useParams();
   const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
-    navigate('./' + newValue, { replace: true });
+    navigate('./' + newValue);
   };
 
   if (urlParams.tab)
@@ -47,7 +44,7 @@ export function ArtistTabs({ artist }) {
           </Tabs>
         </Box>
         <TabPanel value="songs" currentValue={urlParams.tab}>
-          <ArtistSongsList songs={artist?.songs} />
+          <ArtistSongsList songs={songs} />
         </TabPanel>
         <TabPanel value="albums" currentValue={urlParams.tab}>
           <Box sx={{ p: "12px 0px 12px 12px" }}>

@@ -9,6 +9,7 @@ import { Main } from "./components/main/Main";
 import TopBar from "./components/top/TopBar";
 import { theme } from "./Consts";
 import { PlayerProvider } from "./contexts/PlayerContext";
+import { MainSongsProvider } from "./contexts/MainSongsContext";
 import { Player } from './Player';
 
 export function App() {
@@ -25,10 +26,12 @@ export function App() {
           horizontal: 'center',
         }}>
         <Stack sx={{ minHeight: "100vh", p: { md: "0px 24px 0px 24px", xs: "0px 0px 0px 0px" } }} >
+          <TopBar />
           <PlayerProvider>
-            <TopBar />
-            <Main />
-            <BottomBar />
+            <MainSongsProvider>
+              <Main />
+              <BottomBar />
+            </MainSongsProvider>
           </PlayerProvider>
         </Stack>
       </SnackbarProvider>

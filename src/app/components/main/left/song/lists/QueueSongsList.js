@@ -10,13 +10,13 @@ import { RemoveQueue } from './buttons/RemoveQueue';
 import { RemoveQueueItem } from './menu/items/RemoveQueueItem';
 import { MoreMenu } from './menu/MoreMenu';
 
-export const QueueSongsList = ({songs}) => {
+export const QueueSongsList = () => {
   const {playerContext, setPlayerContext} = useContext(PlayerContext);
   const currentSong = playerContext.queue.songs[playerContext.queue.position] || null;
 
   return (
     <Virtuoso
-      data={songs}
+      data={playerContext.queue.songs}
       overscan={50}
       itemContent={(index, song) => 
         <QueueSongListItem
@@ -44,7 +44,6 @@ const QueueSongListItem = memo(({song, index, ...other}) => {
   const handleSongClick = () => {
     Player.switchTo(index); 
   }
-
   return (
     <>  
       <SongListItem song={song} index={index} {...other} onSongClick={handleSongClick} >
