@@ -2,7 +2,6 @@ import { URLMAIN_API } from "app/Consts"
 import {json, status} from "./Utilities"
 
 export class BaseAPI {
-  
   static path = URLMAIN_API;
 
   static async get(id) {
@@ -10,5 +9,4 @@ export class BaseAPI {
     .then(status)
     .then(json)
   }
-
 }

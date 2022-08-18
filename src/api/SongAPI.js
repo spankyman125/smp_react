@@ -2,7 +2,6 @@ import { BaseAPI } from "./BaseAPI";
 import { json, retryAfterRefresh, status, withAuth } from "./Utilities";
 
 export class SongAPI extends BaseAPI {
-
   static path = super.path + "/songs";
 
   static get = retryAfterRefresh(
@@ -18,5 +17,4 @@ export class SongAPI extends BaseAPI {
       .then(status)
       .then(json)
   }
-
 }

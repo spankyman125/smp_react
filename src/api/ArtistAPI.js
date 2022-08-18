@@ -2,7 +2,6 @@ import { BaseAPI } from "./BaseAPI";
 import { json, retryAfterRefresh, status, withAuth } from "./Utilities";
 
 export class ArtistAPI extends BaseAPI {
-
   static path = super.path + "/artists";
 
   static get = retryAfterRefresh(

@@ -1,11 +1,11 @@
-import { AuthAPI   } from "./AuthAPI"
+import { AuthAPI } from "./AuthAPI"
 import { ArtistAPI } from "./ArtistAPI"
-import { SongAPI   } from "./SongAPI"
-import { AlbumAPI  } from "./AlbumAPI"
-import { UserAPI   } from "./UserAPI"
+import { SongAPI } from "./SongAPI"
+import { AlbumAPI } from "./AlbumAPI"
+import { UserAPI } from "./UserAPI"
 import { SearchAPI } from "./SearchAPI"
-import { TagAPI    } from "./TagAPI"
-import { HomeAPI   } from "./HomeAPI"
+import { TagAPI } from "./TagAPI"
+import { HomeAPI } from "./HomeAPI"
 
 export class API {
   static auth = AuthAPI;

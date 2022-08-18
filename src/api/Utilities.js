@@ -1,9 +1,9 @@
 import { AuthAPI } from "./AuthAPI"
 
 export function status(response) {
-  if (response.status >= 200 && response.status < 300)
+  if (response.status >= 200 && response.status < 300) {
     return Promise.resolve(response)
-  else {
+  } else {
     return Promise.reject(new Error(response.statusText))
   }
 }
@@ -13,7 +13,7 @@ export function json(response) {
 }
 
 export function withAuth(request) {
-  if (request)
+  if (request) {
     return {
       ...request,
       headers: {
@@ -21,12 +21,13 @@ export function withAuth(request) {
         "Authorization": "Bearer " + AuthAPI.access_token
       }
     }
-  else
+  } else {
     return {
       headers: {
         "Authorization": "Bearer " + AuthAPI.access_token
       }
     }
+  }
 }
 
 // Race condition?

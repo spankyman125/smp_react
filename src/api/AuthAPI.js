@@ -3,13 +3,15 @@ import { BaseAPI } from "./BaseAPI"
 import Cookies from 'js-cookie'
 
 export class AuthAPI extends BaseAPI {
-
   static path = super.path + "/auth";
   static access_token = null;
   static refresh_token = null;
   static remember = false;
 
-  static async restore_session(successCallback = () => void 0, errorCallback = () => void 0) {
+  static async restore_session(
+    successCallback = () => void 0,
+    errorCallback = () => void 0,
+  ) {
     if (Cookies.get('refresh_token')) {
       this.remember = true;
       this.refresh_token = Cookies.get('refresh_token');
@@ -19,14 +21,19 @@ export class AuthAPI extends BaseAPI {
           errorCallback()
           return Promise.reject(new Error("Session restore failed"))
         })
-    }
-    else {
+    } else {
       errorCallback();
       return Promise.resolve("No previous session")
     }
   }
 
-  static async signin(username, password, remember, successCallback = () => void 0, errorCallback = () => void 0) {
+  static async signin(
+    username,
+    password,
+    remember,
+    successCallback = () => void 0,
+    errorCallback = () => void 0,
+  ) {
     let { access_token, refresh_token } = await fetch(
       this.path + "/token",
       {
@@ -55,7 +62,6 @@ export class AuthAPI extends BaseAPI {
     }
   }
 
-
   static signout(callback = () => void 0) {
     this.access_token = null;
     this.refresh_token = null;
@@ -64,7 +70,10 @@ export class AuthAPI extends BaseAPI {
   }
 
   //TODO: Add token refresh by time?
-  static async refresh(successCallback = () => void 0, errorCallback = () => void 0) {
+  static async refresh(
+    successCallback = () => void 0, 
+    errorCallback = () => void 0,
+  ) {
     let { access_token, refresh_token } = await fetch(
       this.path + "/token-refresh?" + new URLSearchParams({ refresh_token: this.refresh_token }),
       { method: 'POST' }
@@ -86,5 +95,4 @@ export class AuthAPI extends BaseAPI {
     }
     return Promise.resolve(true)
   }
-
 }

@@ -3,7 +3,6 @@ import { AuthAPI } from "./AuthAPI"
 import { json, status, withAuth } from "./Utilities"
 
 export class UserAPI extends BaseAPI {
-
   static path = super.path + "/users";
 
   static async me() {
@@ -12,7 +11,12 @@ export class UserAPI extends BaseAPI {
       .then(json)
   }
 
-  static async create(username, password, successCallback = () => void 0, errorCallback = () => void 0) {
+  static async create(
+    username,
+    password,
+    successCallback = () => void 0,
+    errorCallback = () => void 0,
+  ) {
     fetch(
       this.path,
       {
@@ -32,5 +36,4 @@ export class UserAPI extends BaseAPI {
       .then(successCallback)
       .catch(errorCallback)
   }
-
 }
