@@ -42,7 +42,6 @@ export function CardsList(props) {
       </IconButton>
       <Stack 
         ref={scrolledContainer}
-        container 
         spacing={2} 
         direction="row" 
         sx={{
@@ -55,7 +54,7 @@ export function CardsList(props) {
           }
         }}
       >
-        {props.children.map((child,index)=>(<div>{child}</div>))}
+        {props.children}
       </Stack>
     </Box>
   );
