@@ -1,6 +1,7 @@
 import { json, status } from "./Utilities"
 import { BaseAPI } from "./BaseAPI"
 import Cookies from 'js-cookie'
+import jwt_decode from "jwt-decode";
 
 export class AuthAPI extends BaseAPI {
   static path = super.path + "/auth";
@@ -54,6 +55,7 @@ export class AuthAPI extends BaseAPI {
 
     this.access_token = access_token;
     this.refresh_token = refresh_token;
+    this.setRefreshTimeout()
     successCallback();
 
     if (remember) {
@@ -69,9 +71,14 @@ export class AuthAPI extends BaseAPI {
     callback();
   }
 
-  //TODO: Add token refresh by time?
+  static setRefreshTimeout() {
+    const tokenDecoded = jwt_decode(this.access_token);
+    const timeoutMs = new Date(tokenDecoded.exp * 1000) - new Date() - 30000; //Expire time - 30 sec
+    setTimeout(() => this.refresh(), timeoutMs);
+  }
+
   static async refresh(
-    successCallback = () => void 0, 
+    successCallback = () => void 0,
     errorCallback = () => void 0,
   ) {
     let { access_token, refresh_token } = await fetch(
@@ -88,7 +95,7 @@ export class AuthAPI extends BaseAPI {
 
     this.access_token = access_token;
     this.refresh_token = refresh_token;
-
+    this.setRefreshTimeout();
     successCallback();
     if (this.remember) {
       Cookies.set('refresh_token', this.refresh_token);
