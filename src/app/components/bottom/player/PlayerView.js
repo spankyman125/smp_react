@@ -13,55 +13,70 @@ import { PlayerContext } from "../../../contexts/PlayerContext";
 import { Player } from "../../../Player";
 
 export default function PlayerView(props) {
-
-  const {playerContext, setPlayerContext} = useContext(PlayerContext);
-  let queueIsEmpty = (playerContext.queue.songs.length===0)? true : false
-  
-  let position = null;
-  let currentSong = null;
-
-  if(!queueIsEmpty) {
-    position = playerContext.queue.position;
-    currentSong = playerContext.queue.songs[position]
-  }
-
-  function next () {
-    Player.next();
-  }
-
-  const prev = () => {
-    Player.prev();
-  }
-
-  const togglePlay = () => {
-    Player.togglePlay();
-  }
+  const { playerContext, setPlayerContext } = useContext(PlayerContext);
+  const currentSong = playerContext.queue.songs[playerContext.queue.position] || null
 
   return (
-    <React.Fragment>
-      <Box sx = {{height: {xs:"45px",md:"50px"},   flexShrink: 0}}>
-        <img 
-          alt="" 
-          src={(queueIsEmpty? URLMAIN_STATIC + "/static/images/song_covers/default.png" : URLMAIN_STATIC + currentSong.cover_url )} 
-          height="100%" 
-          style={{borderRadius: "10%"}}
-        />
-      </Box>
-      <IconButton onClick={prev}><SkipPreviousIcon/></IconButton>
-      <Checkbox 
-        checked={playerContext.isPlaying? true : false}
-        color='default' 
-        icon={<PlayArrowIcon/>} 
-        checkedIcon={<PauseIcon/>} 
-        onChange={togglePlay}  
-      />
-      <IconButton onClick={next}><SkipNextIcon/></IconButton>
-      <Box sx={{minWidth: 0,flexGrow: 1,}}>
-        <Typography noWrap variant="body1">{(queueIsEmpty? "Queue is empty" : currentSong.title)}</Typography>
-        <Typography noWrap variant="subtitle2" >{(queueIsEmpty? "" : currentSong.artists[0].name)}</Typography>
-      </Box>
-    </React.Fragment>
+    <>
+      <SongCover song={currentSong} />
+      <PreviousButton />
+      <PlayToggle isPlaying={playerContext.isPlaying} />
+      <NextButton />
+      <SongInfo song={currentSong} />
+    </>
   );
-
 }
 
+const SongCover = ({ song }) => {
+  return (
+    <Box sx={{ height: { xs: "45px", md: "50px" }}}>
+      <img
+        alt="Song cover"
+        src={URLMAIN_STATIC + (song?.cover_url || "/static/images/song_covers/default.png")}
+        height="100%"
+        style={{ borderRadius: "10%" }}
+      />
+    </Box>
+  )
+}
+
+const PlayToggle = ({ isPlaying }) => {
+  return (
+    <Checkbox
+      checked={isPlaying}
+      color='default'
+      icon={<PlayArrowIcon />}
+      checkedIcon={<PauseIcon />}
+      onChange={Player.togglePlay}
+    />
+  )
+}
+
+const NextButton = () => {
+  return (
+    <IconButton onClick={Player.next}>
+      <SkipNextIcon />
+    </IconButton>
+  )
+}
+
+const PreviousButton = () => {
+  return (
+    <IconButton onClick={Player.prev}>
+      <SkipPreviousIcon />
+    </IconButton>
+  )
+}
+
+const SongInfo = ({ song }) => {
+  return (
+    <Box sx={{ minWidth: 0, flexGrow: 1, }}>
+      <Typography noWrap variant="body1">
+        {song?.title}
+      </Typography>
+      <Typography noWrap variant="subtitle2" >
+        {song?.artists[0]?.name}
+      </Typography>
+    </Box>
+  )
+}

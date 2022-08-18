@@ -9,7 +9,7 @@ import { PlayerSlider } from './player/PlayerSlider';
 
 const Logo = () => {
   return (
-    <React.Fragment>
+    <>
       <MusicNoteIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
       <Typography
         variant="h6"
@@ -24,26 +24,25 @@ const Logo = () => {
           letterSpacing: '.3rem',
           color: 'inherit',
           textDecoration: 'none',
-          flexShrink:0
+          flexShrink: 0
         }}
       >
         SMP
       </Typography>
-    </React.Fragment>
+    </>
   )
 }
 
-const BottomBar = () => {
+export const BottomBar = () => {
   return (
     <React.Fragment>
-      <AppBar position="sticky" sx={{bottom:"0px"}}>
-          <PlayerSlider/>
-        <Toolbar sx={{p:"0px 8px 0px 8px"}}>
-          <Logo/>
-          <PlayerView/>
+      <AppBar position="sticky" sx={{ bottom: "0px" }}>
+        <PlayerSlider />
+        <Toolbar sx={{ p: "0px 8px 0px 8px" }}>
+          <Logo />
+          <PlayerView />
         </Toolbar>
       </AppBar>
     </React.Fragment>
   );
 };
-export default BottomBar;
