@@ -17,7 +17,7 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);
-  const [sessionRestoredTried, setSessionRestoredTried] = useState(false);
+  const [sessionRestoreTried, setSessionRestoreTried] = useState(false);
 
   const signin = (
     username,
@@ -72,20 +72,20 @@ export const AuthProvider = ({ children }) => {
     AuthAPI.restore_session(
       () => {
         console.log("Session restored");
-        setSessionRestoredTried(true);
+        setSessionRestoreTried(true);
         setIsLogged(true);
       },
       () => {
         console.log("Session restore failed");
-        setSessionRestoredTried(true);
+        setSessionRestoreTried(true);
       }
     )
   }
 
   React.useEffect(() => trySessionRestore(), []);
 
-  const contextValue = { isLogged, signin, signout, signup,}
+  const contextValue = { isLogged, signin, signout, signup, }
 
-  if (sessionRestoredTried)
+  if (sessionRestoreTried)
     return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
 }
