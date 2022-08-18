@@ -1,24 +1,18 @@
 import '@fontsource/roboto/300.css';
-import Box from '@mui/material/Box';
-import React, { useEffect } from 'react';
-import ArtistInfo from "./ArtistInfo";
-import { ArtistAPI } from "api/ArtistAPI"
-import { useState } from "react";
-import { useParams } from 'react-router-dom';
+import { ArtistAPI } from "api/ArtistAPI";
 import { useSnackbar } from 'notistack';
-import { ArtistTabs } from "./ArtistTabs"
-import { Outlet } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ArtistHeader } from "./ArtistHeader";
+import { ArtistTabs } from "./ArtistTabs";
 
-export function ArtistView() {
-  
-  const [isLoaded, setIsLoaded] = useState(false); 
-  const [artist, setArtist] = useState(null); 
+export const ArtistView = () => {
+  const [artist, setArtist] = useState(null);
   const { enqueueSnackbar, closeSnack } = useSnackbar();
   const urlParams = useParams();
   const navigate = useNavigate();
 
-  switch(urlParams.tab) {
+  switch (urlParams.tab) {
     case "songs":
     case "albums":
       break;
@@ -29,32 +23,23 @@ export function ArtistView() {
 
   const fetchData = () => {
     ArtistAPI.get(urlParams.artistId)
-    .then(
-      (result) => {
-        enqueueSnackbar("Artist received", { variant: 'info' });
-        setIsLoaded(true);
-        setArtist(result);
-      },
-      (error)=>{
-        enqueueSnackbar(error.message, { variant: 'error' });
-    })
+      .then(
+        (result) => {
+          enqueueSnackbar("Artist received", { variant: 'info' });
+          setArtist(result);
+        },
+        (error) => {
+          enqueueSnackbar(error.message, { variant: 'error' });
+        })
   }
-    
-  useEffect(()=>fetchData(),[urlParams.artistId])
-    
-  if (isLoaded) {
-    return(
-      <Box>
-        <ArtistInfo artist={artist}/>
-        <ArtistTabs artist={artist}/>
-      </Box>
-    )
-  }
-  else
-    return(
-      <Box>
-        Loading artist 
-      </Box>
-    )
+
+  useEffect(() => fetchData(), [urlParams.artistId])
+
+  return (
+    <>
+      <ArtistHeader artist={artist} />
+      <ArtistTabs artist={artist} />
+    </>
+  )
 }
 

@@ -23,37 +23,37 @@ function TabPanel(props) {
       {...other}
     >
       {value === currentValue && (
-          <React.Fragment>{children}</React.Fragment>
+        <React.Fragment>{children}</React.Fragment>
       )}
     </div>
   );
 }
 
-export function ArtistTabs(props) {
+export function ArtistTabs({ artist }) {
   const urlParams = useParams();
   const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
-    navigate('./' + newValue,{ replace: true });
+    navigate('./' + newValue, { replace: true });
   };
 
-  if(urlParams.tab)
+  if (urlParams.tab)
     return (
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={urlParams.tab} onChange={handleChange}>
-            <Tab label="Songs" value="songs"/>
+            <Tab label="Songs" value="songs" />
             <Tab label="Albums" value="albums" />
           </Tabs>
         </Box>
         <TabPanel value="songs" currentValue={urlParams.tab}>
-          <ArtistSongsList songs={props.artist.songs}/>
+          <ArtistSongsList songs={artist?.songs} />
         </TabPanel>
         <TabPanel value="albums" currentValue={urlParams.tab}>
-          <Box sx={{p:"12px 0px 12px 12px"}}>
+          <Box sx={{ p: "12px 0px 12px 12px" }}>
             <CardsGrid>
-              {props.artist.albums.map(
-                (album)=>(<AlbumCard key={album.id} album={album}/>)
+              {artist?.albums.map(
+                (album) => (<AlbumCard key={album.id} album={album} />)
               )}
             </CardsGrid>
           </Box>
