@@ -9,7 +9,7 @@ export class AuthAPI extends BaseAPI {
   static refresh_token = null;
   static remember = false;
 
-  static async restore_session(successCallback, errorCallback) {
+  static async restore_session(successCallback = () => void 0, errorCallback = () => void 0) {
     if (Cookies.get('refresh_token')) {
       this.remember = true;
       this.refresh_token = Cookies.get('refresh_token');
@@ -26,7 +26,7 @@ export class AuthAPI extends BaseAPI {
     }
   }
 
-  static async signin(username, password, successCallback, errorCallback, remember) {
+  static async signin(username, password, remember, successCallback = () => void 0, errorCallback = () => void 0) {
     let { access_token, refresh_token } = await fetch(
       this.path + "/token",
       {
@@ -55,7 +55,8 @@ export class AuthAPI extends BaseAPI {
     }
   }
 
-  static signout(callback) {
+
+  static signout(callback = () => void 0) {
     this.access_token = null;
     this.refresh_token = null;
     Cookies.set('refresh_token');

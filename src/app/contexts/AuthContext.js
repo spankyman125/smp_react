@@ -1,3 +1,4 @@
+import { UserAPI } from "api/UserAPI";
 import { AuthAPI } from "api/AuthAPI";
 import * as React from 'react';
 import { useState } from "react";
@@ -7,6 +8,7 @@ const AuthContext = React.createContext({
   isLogged: false,
   signin: null,
   signout: null,
+  signup: null,
 });
 
 export const useAuth = () => {
@@ -17,10 +19,17 @@ export const AuthProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);
   const [sessionRestoredTried, setSessionRestoredTried] = useState(false);
 
-  const signin = (username, password, successCallback, errorCallback, rememberFlag) => {
+  const signin = (
+    username,
+    password,
+    rememberFlag,
+    successCallback = () => void 0,
+    errorCallback = () => void 0
+  ) => {
     AuthAPI.signin(
       username,
       password,
+      rememberFlag,
       () => {
         console.log("Signed in");
         setIsLogged(true);
@@ -28,10 +37,29 @@ export const AuthProvider = ({ children }) => {
       },
       () => {
         console.log("Signin failed");
-        setIsLogged(true);
+        setIsLogged(false);
         errorCallback();
       },
-      rememberFlag
+    );
+  }
+
+  const signup = (
+    username,
+    password,
+    successCallback = () => void 0,
+    errorCallback = () => void 0
+  ) => {
+    UserAPI.create(
+      username,
+      password,
+      () => {
+        console.log("User created");
+        successCallback();
+      },
+      () => {
+        console.log("Error creating user");
+        errorCallback();
+      },
     );
   }
 
@@ -56,7 +84,7 @@ export const AuthProvider = ({ children }) => {
 
   React.useEffect(() => trySessionRestore(), []);
 
-  const contextValue = { isLogged, signin, signout }
+  const contextValue = { isLogged, signin, signout, signup,}
 
   if (sessionRestoredTried)
     return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
