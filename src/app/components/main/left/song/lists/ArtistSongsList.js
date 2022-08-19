@@ -30,7 +30,7 @@ const ArtistSongListItem = memo(({ songs, index, ...other }) => {
       songs: songs,
       position: index,
     });
-  }, [])
+  }, [songs, index])
 
   const MemoizedButtons = useMemo(
     () => [
