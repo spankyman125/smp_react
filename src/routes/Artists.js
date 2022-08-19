@@ -1,15 +1,16 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { ArtistView } from "app/components/main/left/artist/ArtistView"
-import { Outlet } from "react-router-dom";
-import React from "react";
+import { ArtistView } from "app/components/main/left/artist/ArtistView";
+import { Navigate, Outlet, Route } from "react-router-dom";
 
 export const Artists = () => {
   return (
     <Route path="artists" >
-      <Route path=":artistId" element={<ArtistView/>}>
-        <Route path=":tab" element={null} />
+      <Route path=":artistId" element={<Outlet />}>
+        <Route path="songs" element={<ArtistView tab="songs" />} />
+        <Route path="albums" element={<ArtistView tab="albums" />} />
+        <Route path="*" element={<Navigate to="./songs" />} />
+        <Route path="" element={<Navigate to="./songs" />} />
       </Route>
-      <Route path="" element={<Navigate to="/" />}/>
+      <Route path="" element={<Navigate to="/home" />} />
     </Route>
   )
 }
