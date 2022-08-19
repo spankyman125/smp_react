@@ -11,6 +11,30 @@ export class UserAPI extends BaseAPI {
       .then(json)
   }
 
+  static async get(username) {
+    return fetch(this.path + `/${username}`, withAuth())
+    .then(status)
+    .then(json)
+  }
+
+  static async get_songs(username) {
+    return fetch(this.path + `/${username}/songs`, withAuth())
+    .then(status)
+    .then(json)
+  }
+
+  static async get_albums(username) {
+    return fetch(this.path + `/${username}/albums`, withAuth())
+    .then(status)
+    .then(json)
+  }
+
+  static async get_artists(username) {
+    return fetch(this.path + `/${username}/artists`, withAuth())
+    .then(status)
+    .then(json)
+  }
+
   static async create(
     username,
     password,
