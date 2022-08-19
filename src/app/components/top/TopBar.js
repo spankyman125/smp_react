@@ -75,7 +75,7 @@ const UserProfile = () => {
       .then(
         (result) => {
           setImage(URLMAIN_STATIC + result.image_url)
-          enqueueSnackbar("User info received", { variant: 'info' });
+          enqueueSnackbar("User avatar received", { variant: 'info' });
         }
       )
       .catch((error) => {
