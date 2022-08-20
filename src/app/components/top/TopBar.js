@@ -17,6 +17,7 @@ import { UserAPI } from "api/UserAPI";
 import { URLMAIN_STATIC } from 'app/Consts';
 import { useSnackbar } from 'notistack';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const SearchBox = styled('div')(({ theme }) => ({
@@ -62,13 +63,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const UserProfile = () => {
 
-  // const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [image, setImage] = React.useState(null);
   const { enqueueSnackbar, closeSnack } = useSnackbar();
-
-  // const handleOpenUserMenu = (event) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
+  const navigate = useNavigate();
 
   const fetchData = () => {
     UserAPI.me()
@@ -87,7 +84,7 @@ const UserProfile = () => {
 
   return (
     <Tooltip title="Open profile">
-      <IconButton>
+      <IconButton onClick={() => navigate("/users/me")}>
         <Avatar
           alt="Avatar"
           src={image}
@@ -183,7 +180,7 @@ const NavigationMenu = () => {
   )
 }
 
-const TopBar = () => {
+export const TopBar = () => {
 
   return (
     <AppBar position="static" color="primary" sx={{ top: 'auto', bottom: 0 }}>
@@ -206,4 +203,3 @@ const TopBar = () => {
     </AppBar>
   );
 };
-export default TopBar;

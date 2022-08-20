@@ -6,7 +6,7 @@ import { SnackbarProvider } from 'notistack';
 
 import { BottomBar } from "./components/bottom/BottomBar";
 import { Main } from "./components/main/Main";
-import TopBar from "./components/top/TopBar";
+import { TopBar } from "./components/top/TopBar";
 import { theme } from "./Consts";
 import { PlayerProvider } from "./contexts/PlayerContext";
 import { MainSongsProvider } from "./contexts/MainSongsContext";
