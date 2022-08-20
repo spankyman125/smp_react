@@ -1,18 +1,16 @@
 import { Link as MuiLink } from '@mui/material';
 import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import { Link as RouterLink } from "react-router-dom";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import Button from '@mui/material/Button';
-import { URLMAIN_STATIC } from "app/Consts";
 import { Header } from "../Header";
-import Skeleton from '@mui/material/Skeleton';
+import { AlbumCardImage, AlbumCardLikeButton } from './AlbumCard';
 
 
 export const AlbumHeader = ({ album }) => {
   return (
     <Header>
-      <AlbumHeaderImage image={album?.cover_url} />
+      <AlbumHeaderImage album={album} />
       <AlbumHeaderText album={album} />
     </Header>
   );
@@ -45,36 +43,21 @@ const AlbumHeaderText = ({ album }) => {
   );
 }
 
-const AlbumHeaderImage = ({ image }) => {
+const AlbumHeaderImage = ({ album }) => {
   return (
-    <Box sx={{
-      position: "relative",
-      borderRadius: '50%', width: "200px", height: "200px"
-    }}>
-      {image ?
-        <img
-          src={URLMAIN_STATIC + image}
-          width="100%"
-          height="100%"
-          style={{ borderRadius: "7%" }}
-        />
-        :
-        <Skeleton variant="rectangle" width={200} height={200} />
-      }
-      <Button
-        variant="contained"
-        sx={{
-          position: "absolute",
-          bottom: "10px",
-          right: "10px",
-          height: "35px",
-          width: "35px",
-          minWidth: "5px"
-        }}>
-        <FavoriteBorderIcon />
-      </Button>
+    <Box
+      sx={{
+        minWidth: "200px",
+        width: "200px",
+        height: "200px",
+        position: "relative"
+      }}
+    >
+      <AlbumCardImage album={album}>
+        <AlbumCardLikeButton album={album} />
+      </AlbumCardImage>
     </Box>
-  );
+  )
 }
 
 const showArtists = (artists) => {

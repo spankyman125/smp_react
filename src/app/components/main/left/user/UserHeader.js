@@ -8,66 +8,55 @@ import Skeleton from '@mui/material/Skeleton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { UserAPI } from 'api/UserAPI';
-import { URLMAIN_STATIC } from "app/Consts";
 import { useEffect, useState } from 'react';
+import { CardButton } from '../Card';
 import { Header } from "../Header";
-
+import { UserCardImage } from './UserCard';
 
 export const UserHeader = ({ user, editable }) => {
   return (
     <Header>
-      <UserHeaderImage image={user?.image_url} editable={editable} />
+      <UserHeaderImage user={user} editable={editable} />
       <UserHeaderText user={user} editable={editable} />
     </Header>
   );
 }
 
-const UserHeaderImage = ({ image, editable }) => {
-  const [editedImage, setEditedImage] = useState(image);
+const UserHeaderImage = ({ user, editable }) => {
+  const [editedUser, setEditedUser] = useState(user);
 
   const handleUploadImage = ({ target }) => {
     UserAPI.uploadImage(target.files[0])
-      .then((result) => setEditedImage(result.image_url))
+      .then((result) => setEditedUser({ ...editedUser, image_url: result.image_url }))
   }
-  useEffect(() => setEditedImage(image), [image]);
+  useEffect(() => setEditedUser(user), [user]);
 
   return (
-    <Box sx={{
-      position: "relative",
-      borderRadius: '50%',
-      width: "200px",
-      height: "200px"
-    }}>
-      {editedImage ?
-        <img
-          src={URLMAIN_STATIC + editedImage}
-          width="100%"
-          height="100%"
-          style={{ borderRadius: "7%" }}
-        />
-        :
-        <Skeleton variant="rectangle" width={200} height={200} />
-      }
-      {editable &&
-        <>
-          <Button
-            component="label"
-            variant="contained"
-            sx={{
-              position: "absolute",
-              bottom: "10px",
-              right: "10px",
-              height: "35px",
-              width: "35px",
-              minWidth: "5px"
-            }}>
-            <FileUploadIcon />
-            <input type="file" accept="image/*" onChange={handleUploadImage} hidden />
-          </Button>
-        </>
-      }
+    <Box
+      sx={{
+        minWidth: "200px",
+        width: "200px",
+        height: "200px",
+        position: "relative"
+      }}
+    >
+      <UserCardImage user={editedUser}>
+        {editable &&
+          <CardButton>
+            <Button
+              component="label"
+              variant="contained"
+              sx={{ height: "35px", width: "35px", minWidth: "0px" }}
+            >
+              <FileUploadIcon />
+              <input type="file" accept="image/*" onChange={handleUploadImage} hidden />
+            </Button>
+          </CardButton>
+        }
+      </UserCardImage>
     </Box>
-  );
+  )
+
 }
 
 const UserHeaderText = ({ user, editable }) => {

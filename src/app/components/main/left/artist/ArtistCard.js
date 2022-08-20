@@ -1,33 +1,54 @@
 import { Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { URLMAIN_STATIC } from 'app/Consts';
+import { ArtistAPI } from 'api/ArtistAPI';
 import { useNavigate } from "react-router-dom";
+import { CardImage, CardLikeButton } from '../Card';
 
-export function ArtistCard({ artist }) {
-  const navigate = useNavigate();
-
-  const onClick = () => {
-    navigate('/artists/' + artist.id);
-  }
-
+export const ArtistCard = ({ artist }) => {
   return (
     <Box
-      onClick={onClick}
       sx={{
-        minWidth: { xs: "150px", lg: "200px" },
-        width: { xs: "150px", lg: "200px" }
+        minWidth: { xs: "120px", sm: "150px", lg: "180px" },
+        width: { xs: "120px", sm: "150px", lg: "180px" },
+        position: "relative"
       }}
     >
-      <Box
-        component="img"
-        src={URLMAIN_STATIC + artist.cover_url}
-        alt={artist.name}
-        width="100%"
-        sx={{ borderRadius: "50%" }}>
-      </Box>
-      <Typography variant="subtitle2" noWrap sx={{ textAlign: "center" }}>
-        {artist.name}
-      </Typography>
+      <ArtistCardImage artist={artist} >
+        <ArtistCardLikeButton artist={artist} />
+      </ArtistCardImage>
+      <ArtistCardText artist={artist} />
     </Box>
-  );
+  )
+}
+
+export const ArtistCardImage = ({ artist, children }) => {
+  const navigate = useNavigate();
+  const handleImageClick = () => {
+    navigate('/artists/' + artist.id);
+  }
+  return (
+    <CardImage
+      image={artist?.cover_url}
+      onClick={handleImageClick}
+      sx={{ borderRadius: "50%" }}
+    >
+      {children}
+    </CardImage>
+  )
+}
+
+export const ArtistCardLikeButton = ({ artist }) => {
+  const likeCallback = () => {
+    ArtistAPI.like(artist?.id);
+  }
+  if (artist)
+    return <CardLikeButton likeCallback={likeCallback} isLiked={artist?.liked} />
+}
+
+export const ArtistCardText = ({ artist }) => {
+  return (
+    <Typography variant="subtitle2" noWrap sx={{ textAlign: "center" }}>
+      {artist?.name}
+    </Typography>
+  )
 }
