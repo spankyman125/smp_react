@@ -7,7 +7,7 @@ export function ArtistCard({ artist }) {
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate('/artists/' + artist.id + "/songs");
+    navigate('/artists/' + artist.id);
   }
 
   return (

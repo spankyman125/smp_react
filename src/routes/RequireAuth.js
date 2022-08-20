@@ -6,7 +6,6 @@ export const RequireAuth = ({ children }) => {
   let auth = useAuth();
   let location = useLocation();
 
-  // Redirect to the /login page, but save the current location
   if (!auth.isLogged) 
     return <Navigate to="/login" state={{ from: location }} replace />;
 

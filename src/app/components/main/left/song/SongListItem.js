@@ -13,7 +13,7 @@ const ArtistsLinks = ({artists}) => {
       <MuiLink 
         variant="subtitle2"
         component={RouterLink} 
-        to={"/artists/" + artist.id + "/songs"}
+        to={"/artists/" + artist.id}
         underline="none"
         sx={{color:"info.main"}}
       >

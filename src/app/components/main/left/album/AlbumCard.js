@@ -7,7 +7,7 @@ export function AlbumCard({ album }) {
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate('/albums/' + album.id + "/songs");
+    navigate('/albums/' + album.id);
   }
 
   return (
