@@ -95,21 +95,21 @@ const UserProfile = () => {
 }
 
 const NavigationButtons = () => {
-  const pages = ['Home', 'Collection'];
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const navigate = useNavigate();
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  const pages = [
+    { label: "Home", handleClick: () => navigate("/home") },
+    { label: "Collection", handleClick: () => navigate("/users/me") },
+  ]
 
   return (
     pages.map((page) => (
       <Button
-        key={page}
-        onClick={handleCloseNavMenu}
+        key={page.label}
+        onClick={page.handleClick}
         sx={{ my: 2, color: 'white', display: 'block' }}
       >
-        {page}
+        {page.label}
       </Button>
     ))
   )
