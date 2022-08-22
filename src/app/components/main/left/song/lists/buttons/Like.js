@@ -23,8 +23,9 @@ export const Like = (props) => {
       (song) => song.id === props.song.id ?
         { ...song, liked: !song.liked } : song
     )
-    Player.replace(queueClone)
     SongAPI.like(props.song.id);
+    props.song.liked = !props.song.liked; // :(
+    Player.replace(queueClone)
   }
 
   return (

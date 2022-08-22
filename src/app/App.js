@@ -26,9 +26,9 @@ export function App() {
           horizontal: 'center',
         }}>
         <Stack sx={{ minHeight: "100vh", p: { md: "0px 24px 0px 24px", xs: "0px 0px 0px 0px" } }} >
-          <TopBar />
           <PlayerProvider>
             <MainSongsProvider>
+              <TopBar />
               <Main />
               <BottomBar />
             </MainSongsProvider>
