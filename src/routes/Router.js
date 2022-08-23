@@ -9,6 +9,7 @@ import { DefaultRedirect } from 'routes/DefaultRedirect';
 import { Home } from 'routes/Home';
 import { RequireAuth } from 'routes/RequireAuth';
 import { Users } from 'routes/Users';
+import { Playlists } from 'routes/Playlists';
 
 export function Router() {
 
@@ -19,6 +20,7 @@ export function Router() {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<RequireAuth><App /></RequireAuth>}>
             {Home()}
+            {Playlists()}
             {Albums()}
             {Artists()}
             {Users()}

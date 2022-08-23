@@ -1,5 +1,6 @@
 import { Navigate, Outlet, Route } from "react-router-dom";
 import { UserView } from "app/components/main/left/user/UserView";
+import { PlaylistView } from "app/components/main/left/playlist/PlaylistView";
 
 export const Users = () => {
   return (
@@ -8,6 +9,7 @@ export const Users = () => {
         <Route path="songs" element={<UserView tab="songs" />} />
         <Route path="albums" element={<UserView tab="albums" />} />
         <Route path="artists" element={<UserView tab="artists" />} />
+        <Route path="playlists" element={<UserView tab="playlists" />}/>
         <Route path="*" element={<Navigate to="./songs" replace />} />
         <Route path="" element={<Navigate to="./songs" replace />} />
       </Route>

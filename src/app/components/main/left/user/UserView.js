@@ -1,7 +1,7 @@
 import { UserAPI } from "api/UserAPI";
 import { MainSongsContext } from 'app/contexts/MainSongsContext';
 import { useSnackbar } from 'notistack';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ArtistSongsList } from "../song/lists/ArtistSongsList";
 import { UserHeader } from "./UserHeader";
@@ -9,7 +9,9 @@ import { Tabs } from "../Tabs";
 import { AlbumCard } from "../album/AlbumCard";
 import { CardsGrid } from "../CardsGrid";
 import { ArtistCard } from "../artist/ArtistCard";
+import { CreatePlaylistCard, PlaylistCard } from "../playlist/PlaylistCard";
 import { useNavigate } from 'react-router-dom';
+import { PlaylistAPI } from "api/PlaylistAPI";
 
 export const UserView = ({ tab }) => {
   const [user, setUser] = useState(null);
@@ -17,7 +19,7 @@ export const UserView = ({ tab }) => {
   const urlParams = useParams();
   const navigate = useNavigate();
 
-  const editable = urlParams.username === "me";
+  const userIsOwner = urlParams.username === "me";
 
   const fetchData = () => {
     UserAPI.get(urlParams.username)
@@ -36,12 +38,13 @@ export const UserView = ({ tab }) => {
 
   return (
     <>
-      <UserHeader user={user} editable={editable} />
+      <UserHeader user={user} editable={userIsOwner} />
       {user &&
-        <Tabs values={["songs", "albums", "artists"]} labels={["Songs", "Albums", "Artists"]} tab={tab}>
+        <Tabs values={["songs", "albums", "artists", "playlists"]} labels={["Songs", "Albums", "Artists", "Playlists"]} tab={tab}>
           <UserSongsTab user={user} />
           <UserAlbumsTab user={user} />
           <UserArtistsTab user={user} />
+          {userIsOwner && <UserPlaylistsTab user={user} />}
         </Tabs>
       }
     </>
@@ -122,3 +125,58 @@ const UserArtistsTab = ({ user }) => {
   )
 }
 
+const UserPlaylistsTab = ({ user }) => {
+  const playlistsReducer = (playlists, action) => {
+    switch (action.type) {
+      case "replace":
+        return action.playlists
+      case "create":
+        return [...playlists, action.playlist]
+      case "delete":
+        return playlists.filter((playlist) => playlist.id !== action.playlist.id)
+      default:
+        return new Error("Wrong action specified");
+    }
+  }
+
+  const [playlists, playlistsDispatch] = useReducer(playlistsReducer, null);
+  const { enqueueSnackbar, closeSnack } = useSnackbar();
+
+  const deletePlaylist = (playlist) => {
+    PlaylistAPI.delete(playlist.id)
+      .then(() => playlistsDispatch({ type: 'delete', playlist: playlist }))
+  }
+
+  const createPlaylist = (name) => {
+    PlaylistAPI.create(name)
+      .then((playlist) => playlistsDispatch({ type: 'create', playlist: playlist }))
+  }
+
+  const fetchData = () => {
+    PlaylistAPI.get_all("me")
+      .then(
+        (playlists) => {
+          enqueueSnackbar("User playlists received", { variant: 'info' });
+          playlistsDispatch({ type: "replace", playlists: playlists })
+        },
+        (error) => {
+          enqueueSnackbar(error.message, { variant: 'error' });
+        })
+  }
+
+  useEffect(() => fetchData(), [user])
+  return (
+    <CardsGrid sx={{ p: "12px 0px 12px 12px" }}>
+      <CreatePlaylistCard createPlaylist={createPlaylist} />
+      {playlists?.map(
+        (playlist) => (
+          <PlaylistCard
+            key={playlist.id}
+            playlist={playlist}
+            deletePlaylist={() => deletePlaylist(playlist)}
+          />
+        )
+      )}
+    </CardsGrid>
+  )
+}
