@@ -6,6 +6,7 @@ import { UserAPI } from "./UserAPI"
 import { SearchAPI } from "./SearchAPI"
 import { TagAPI } from "./TagAPI"
 import { HomeAPI } from "./HomeAPI"
+import { PlaylistAPI } from "./PlaylistAPI"
 
 export class API {
   static auth = AuthAPI;
@@ -13,6 +14,7 @@ export class API {
   static songs = SongAPI;
   static albums = AlbumAPI;
   static users = UserAPI;
+  static playlists = PlaylistAPI;
   static search = SearchAPI;
   static tags = TagAPI;
   static home = HomeAPI;
