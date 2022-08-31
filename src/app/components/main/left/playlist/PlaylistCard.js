@@ -80,18 +80,12 @@ const CreateDialog = ({ open, setOpen, createPlaylist }) => {
 
 export const PlaylistCard = ({ playlist, deletePlaylist }) => {
   return (
-    <Box
-      sx={{
-        minWidth: { xs: "120px", sm: "150px", lg: "180px" },
-        width: { xs: "120px", sm: "150px", lg: "180px" },
-        position: "relative"
-      }}
-    >
+    <>
       <PlaylistCardImage playlist={playlist} >
         <PlaylistDeleteButton onClick={deletePlaylist} />
       </PlaylistCardImage>
       <PlaylistCardText playlist={playlist} />
-    </Box>
+    </>
   )
 }
 
@@ -104,7 +98,11 @@ export const PlaylistCardImage = ({ playlist, children }) => {
     <CardImage
       image={playlist?.cover_url}
       onClick={handleImageClick}
-      sx={{ borderRadius: "5%" }}
+      sx={{ 
+        borderRadius: "5%",
+        height:{ xs: "120px", sm: "150px", lg: "180px" },
+        width: { xs: "120px", sm: "150px", lg: "180px" },
+      }}
     >
       {children}
     </CardImage>
