@@ -220,7 +220,13 @@ const SearchResults = ({ open, songs, albums, artists }) => {
 }
 
 const NavigationMenu = () => {
-  const pages = ['Home', 'Collection'];
+  const navigate = useNavigate();
+
+  const pages = [
+    { label: "Home", handleClick: () => navigate("/home") },
+    { label: "Collection", handleClick: () => navigate("/users/me") },
+  ]
+  
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -261,8 +267,8 @@ const NavigationMenu = () => {
         onClose={handleCloseNavMenu}
       >
         {pages.map((page) => (
-          <MenuItem key={page} onClick={handleCloseNavMenu}>
-            <Typography textAlign="center">{page}</Typography>
+          <MenuItem key={page.label} onClick={page.handleClick}>
+            <Typography textAlign="center">{page.label}</Typography>
           </MenuItem>
         ))}
       </Menu>
