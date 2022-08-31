@@ -8,12 +8,14 @@ import { PushQueue } from './buttons/PushQueue';
 import { SongTime } from './buttons/SongTime';
 import { PushQueueItem } from './menu/items/PushQueueItem';
 import { MoreMenu } from './menu/MoreMenu';
+import { PushPlaylistItem } from './menu/items/PushPlaylistItem';
+
 
 export const AlbumSongsList = memo(({ songs }) => {
   return <SongsList songs={songs} Render={AlbumSongListItem} />
 })
 
-const AlbumSongListItem = memo(({ songs, index, ...other }) => {
+const AlbumSongListItem = memo(({ songs, index, playlists, ...other }) => {
   const [anchor, setAnchor] = React.useState(null);
   const song = songs[index] || null;
 
@@ -49,6 +51,7 @@ const AlbumSongListItem = memo(({ songs, index, ...other }) => {
       </SongListItem>
       <MoreMenu anchor={anchor} handleMoreClose={handleMoreClose}>
         <PushQueueItem handleMoreClose={handleMoreClose} song={song} />
+        <PushPlaylistItem song={song} playlists={playlists}></PushPlaylistItem>
       </MoreMenu>
     </>
   )
