@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  node:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - "./build:/container/build"
+      - "./src:/container/src"
+      - "./public:/container/public"
+    ports:
+      - 3000:3000
