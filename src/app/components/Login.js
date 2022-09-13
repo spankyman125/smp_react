@@ -15,14 +15,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Login = () => {
   const [error, setError] = useState(false);
+  const [usernameHelperText, setUsernameHelperText] = useState("");
+  const [passwordHelperText, setPasswordHelperText] = useState("");
+  const [passwordRepeatHelperText, setPasswordRepeatHelperText] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
 
   let navigate = useNavigate();
   let auth = useAuth();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
-
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,22 +34,36 @@ export const Login = () => {
     const remember = data.get('remember');
     const password_repeat = data.get('password_repeat');
 
-    const signWithCreds = () =>
-      auth.signin( //Sign in with provided creds
-        username, password, remember,
-        () => navigate(from, { replace: true }), //Success callback after user signed in, redirect to previous page,
-        () => setError(true) //Error callback if signin failed
-      );
+    const signWithCreds = async () => {
+      return auth.signin(username, password, remember,)
+        .then(() => navigate(from, { replace: true }))
+        .catch((response) => {
+          setError(true);
+          if (response.status === 401)
+            setPasswordHelperText("Wrong username of password")
+          else if (response.status === 422)
+            setPasswordHelperText("Wrong fields provided")
+        })
+    }
 
     if (isSignUp)
       if (password === password_repeat)  //TODO: Add creds checks
-        auth.signup(
-          username, password,
-          () => signWithCreds(), //Success callback after user created
-          () => setError(true), //Error callback if user not created
-        );
-      else
+        auth.signup(username, password)
+          .then(() => signWithCreds())
+          .catch((response) => {
+            console.log(response.status)
+            setError(true);
+            if (response.status === 400) {
+              setUsernameHelperText("Username already registered")
+            } else if (response.status === 422) {
+              setUsernameHelperText("Username must be 3 to 15 characters, no special characters")
+              setPasswordHelperText("Password must be 3 to 15 characters")
+            }
+          })
+      else {
         setError(true);
+        setPasswordRepeatHelperText("Passwords do not match");
+      }
     else
       signWithCreds();
   };
@@ -81,6 +96,7 @@ export const Login = () => {
             autoComplete="username"
             autoFocus
             error={error}
+            helperText={usernameHelperText}
           />
           <TextField
             margin="normal"
@@ -92,7 +108,7 @@ export const Login = () => {
             id="password"
             autoComplete="current-password"
             error={error}
-            helperText=""
+            helperText={passwordHelperText}
           />
           {isSignUp &&
             <TextField
@@ -105,7 +121,7 @@ export const Login = () => {
               id="password_repeat"
               autoComplete="current-password"
               error={error}
-              helperText=""
+              helperText={passwordRepeatHelperText}
             />
           }
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>

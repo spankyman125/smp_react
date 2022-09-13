@@ -19,67 +19,38 @@ export const AuthProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);
   const [sessionRestoreTried, setSessionRestoreTried] = useState(false);
 
-  const signin = (
-    username,
-    password,
-    rememberFlag,
-    successCallback = () => void 0,
-    errorCallback = () => void 0
-  ) => {
-    AuthAPI.signin(
-      username,
-      password,
-      rememberFlag,
-      () => {
+  const signin = async (username, password, rememberFlag) => {
+    return AuthAPI.signin(username, password, rememberFlag)
+      .then(() => {
         console.log("Signed in");
         setIsLogged(true);
-        successCallback();
-      },
-      () => {
+      })
+      .catch((error) => {
         console.log("Signin failed");
         setIsLogged(false);
-        errorCallback();
-      },
-    );
+        return Promise.reject(error)
+      })
   }
 
-  const signup = (
-    username,
-    password,
-    successCallback = () => void 0,
-    errorCallback = () => void 0
-  ) => {
-    UserAPI.create(
-      username,
-      password,
-      () => {
-        console.log("User created");
-        successCallback();
-      },
-      () => {
-        console.log("Error creating user");
-        errorCallback();
-      },
-    );
+  const signup = async (username, password) => {
+    return UserAPI.create(username, password)
   }
 
-  const signout = (callback) => {
+  const signout = () => {
     AuthAPI.signout();
-    callback();
   }
 
   const trySessionRestore = () => {
-    AuthAPI.restore_session(
-      () => {
+    AuthAPI.restoreSession()
+      .then(() => {
         console.log("Session restored");
         setSessionRestoreTried(true);
         setIsLogged(true);
-      },
-      () => {
+      })
+      .catch(() => {
         console.log("Session restore failed");
         setSessionRestoreTried(true);
-      }
-    )
+      })
   }
 
   React.useEffect(() => trySessionRestore(), []);

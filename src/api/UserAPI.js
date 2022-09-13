@@ -74,13 +74,8 @@ export class UserAPI extends BaseAPI {
       .then(json)
   }
 
-  static async create(
-    username,
-    password,
-    successCallback = () => void 0,
-    errorCallback = () => void 0,
-  ) {
-    fetch(
+  static async create(username, password) {
+    return fetch(
       this.path,
       {
         method: 'POST',
@@ -96,7 +91,5 @@ export class UserAPI extends BaseAPI {
     )
       .then(status)
       .then(json)
-      .then(successCallback)
-      .catch(errorCallback)
   }
 }

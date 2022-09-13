@@ -9,33 +9,21 @@ export class AuthAPI extends BaseAPI {
   static refresh_token = null;
   static remember = false;
 
-  static async restore_session(
-    successCallback = () => void 0,
-    errorCallback = () => void 0,
-  ) {
+  static async restoreSession() {
     if (Cookies.get('refresh_token')) {
       this.remember = true;
       this.refresh_token = Cookies.get('refresh_token');
       return this.refresh()
-        .then(successCallback)
         .catch(() => {
-          errorCallback()
           return Promise.reject(new Error("Session restore failed"))
         })
     } else {
-      errorCallback();
-      return Promise.resolve("No previous session")
+      return Promise.reject(new Error("No previous session"))
     }
   }
 
-  static async signin(
-    username,
-    password,
-    remember,
-    successCallback = () => void 0,
-    errorCallback = () => void 0,
-  ) {
-    let { access_token, refresh_token } = await fetch(
+  static async signin(username, password, remember) {
+    return fetch(
       this.path + "/token",
       {
         method: 'POST',
@@ -51,24 +39,22 @@ export class AuthAPI extends BaseAPI {
     )
       .then(status)
       .then(json)
-      .catch(errorCallback)
-
-    this.access_token = access_token;
-    this.refresh_token = refresh_token;
-    this.setRefreshTimeout()
-    successCallback();
-
-    if (remember) {
-      this.remember = true;
-      Cookies.set('refresh_token', this.refresh_token);
-    }
+      .then(({ access_token, refresh_token }) => {
+        this.access_token = access_token;
+        this.refresh_token = refresh_token;
+        this.setRefreshTimeout()
+        if (remember) {
+          this.remember = true;
+          Cookies.set('refresh_token', this.refresh_token);
+        }
+      })
+      .catch((response) => { return Promise.reject(response) })
   }
 
-  static signout(callback = () => void 0) {
+  static signout() {
     this.access_token = null;
     this.refresh_token = null;
     Cookies.set('refresh_token');
-    callback();
   }
 
   static setRefreshTimeout() {
@@ -77,10 +63,7 @@ export class AuthAPI extends BaseAPI {
     setTimeout(() => this.refresh(), timeoutMs);
   }
 
-  static async refresh(
-    successCallback = () => void 0,
-    errorCallback = () => void 0,
-  ) {
+  static async refresh() {
     let { access_token, refresh_token } = await fetch(
       this.path + "/token-refresh?" + new URLSearchParams({ refresh_token: this.refresh_token }),
       { method: 'POST' }
@@ -89,14 +72,12 @@ export class AuthAPI extends BaseAPI {
       .then(json)
       .catch(() => {
         console.log("Token refresh failed");
-        errorCallback();
         return Promise.reject(new Error("Token refresh failed"));
       })
 
     this.access_token = access_token;
     this.refresh_token = refresh_token;
     this.setRefreshTimeout();
-    successCallback();
     if (this.remember) {
       Cookies.set('refresh_token', this.refresh_token);
     }
